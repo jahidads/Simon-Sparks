@@ -328,16 +328,10 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <!-- Logo -->
             <a href="#about" class="flex items-center space-x-2">
-                <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM16.632 9.368C16.822 9.558 16.92 9.81 16.92 10.074C16.92 10.338 16.822 10.59 16.632 10.78L13.414 14H16C16.552 14 17 14.448 17 15C17 15.552 16.552 16 16 16H8C7.448 16 7 15.552 7 15C7 14.448 7.448 14 8 14H10.586L7.368 10.78C6.988 10.399 6.988 9.761 7.368 9.368C7.761 8.988 8.399 8.988 8.78 9.368L12 12.586L15.22 9.368C15.601 8.988 16.239 8.988 16.632 9.368Z" fill="url(#logo-gradient)"/>
-                    <defs>
-                        <linearGradient id="logo-gradient" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#A855F7"/>
-                            <stop offset="1" stop-color="#4F46E5"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                <span class="text-xl font-bold text-white">SIMON SPARKS</span>
+                <img src="https://img.icons8.com/?size=64&id=nyffmioibnWL&format=png" alt="Simon Sparks logo" class="w-8 h-8 rounded-full" onerror="this.onerror=null;this.src='https://placehold.co/64x64/0A0D1E/FFFFFF?text=S'">
+                <span class="flex flex-col leading-tight">
+                    <span class="text-xl font-bold gradient-text logo-glow">SIMON SPARKS</span>
+                </span>
             </a>
             
             <!-- Desktop Navigation -->
@@ -510,12 +504,12 @@
             <aside id="mobile-menu" class="mobile-menu-panel md:hidden" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
-                        <a href="#about" class="flex items-center space-x-2" aria-label="Home">
-                            <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM16.632 9.368C16.822 9.558 16.92 9.81 16.92 10.074C16.92 10.338 16.822 10.59 16.632 10.78L13.414 14H16C16.552 14 17 14.448 17 15C17 15.552 16.552 16 16 16H8C7.448 16 7 15.552 7 15C7 14.448 7.448 14 8 14H10.586L7.368 10.78C6.988 10.399 6.988 9.761 7.368 9.368C7.761 8.988 8.399 8.988 8.78 9.368L12 12.586L15.22 9.368C15.601 8.988 16.239 8.988 16.632 9.368Z" fill="url(#logo-gradient)"/>
-                            </svg>
-                            <span class="text-lg font-bold text-white">SIMON SPARKS</span>
-                        </a>
+                    <a href="#about" class="flex items-center space-x-2">
+                        <img src="https://img.icons8.com/?size=64&id=nyffmioibnWL&format=png" alt="Simon Sparks logo" class="w-8 h-8 rounded-full" onerror="this.onerror=null;this.src='https://placehold.co/64x64/0A0D1E/FFFFFF?text=S'">
+                    <span class="flex flex-col leading-tight">
+                        <span class="text-xl font-bold gradient-text logo-glow">SIMON SPARKS</span>
+                    </span>
+                    </a>
                     </div>
                     <button id="mobile-menu-close" class="close-btn" aria-label="Close mobile menu">✕</button>
                 </div>
@@ -725,7 +719,7 @@
             <div class="container mx-auto px-6 hero-content">
                 <img src="https://cdn.pixabay.com/animation/2024/02/21/04/07/04-07-03-475_512.gif" alt="3D Abstract Logo" class="w-48 h-48 md:w-64 md:h-64 mx-auto mb-8 logo-glow" onerror="this.onerror=null;this.src='https://placehold.co/256x256/0A0D1E/FFFFFF?text=S';">
                 <div class="inline-block group text-center">
-                    <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight fade-in" style="transition-delay:150ms;"></h1>
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight fade-in" style="transition-delay:150ms;">
                         SIMON SPARKS
                     </h1>
                     <p class="mt-4 text-lg md:text-xl text-gray-400 fade-in" style="transition-delay:300ms;">
@@ -1709,8 +1703,8 @@
 
                 <!-- CTA Row -->
                 <div class="mt-6 flex gap-3">
-                    <a href="#contact" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-sm font-semibold">Work with Simon</a>
-                    <a href="#" id="write-review" class="inline-flex items-center justify-center px-4 py-2 rounded-lg btn-outline text-white text-sm font-semibold">Learn Our Team</a>
+                    <a href="mailto:jahidads@yahoo.com" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-sm font-semibold">Work with Us</a>
+                    <a href="https://jahidads.github.io/TeamPro/" class="inline-flex items-center justify-center px-4 py-2 rounded-lg btn-outline text-white text-sm font-semibold">Learn About Our Team</a>
                 </div>
                 </div>
 
@@ -2320,45 +2314,44 @@
         <div class="container mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
             <!-- Brand -->
             <div class="col-span-1">
-                <a href="#about" class="flex items-center gap-3" aria-label="Home — Simon Sparks">
-                    <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM16.632 9.368C16.822 9.558 16.92 9.81 16.92 10.074C16.92 10.338 16.822 10.59 16.632 10.78L13.414 14H16C16.552 14 17 14.448 17 15C17 15.552 16.552 16 16 16H8C7.448 16 7 15.552 7 15C7 14.448 7.448 14 8 14H10.586L7.368 10.78C6.988 10.399 6.988 9.761 7.368 9.368C7.761 8.988 8.399 8.988 8.78 9.368L12 12.586L15.22 9.368C15.601 8.988 16.239 8.988 16.632 9.368Z" fill="url(#logo-gradient-footer)"/>
-                        <defs>
-                            <linearGradient id="logo-gradient-footer" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#A855F7"/>
-                                <stop offset="1" stop-color="#4F46E5"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                    <span class="text-lg font-bold text-white">SIMON SPARKS</span>
-                </a>
+                    <a href="#about" class="flex items-center space-x-2">
+                        <img src="https://img.icons8.com/?size=64&id=nyffmioibnWL&format=png" alt="Simon Sparks logo" class="w-8 h-8 rounded-full" onerror="this.onerror=null;this.src='https://placehold.co/64x64/0A0D1E/FFFFFF?text=S'">
+                    <span class="flex flex-col leading-tight">
+                        <span class="text-xl font-bold gradient-text logo-glow">SIMON SPARKS</span>
+                    </span>
+                    </a>
                 <p class="text-sm text-gray-400 max-w-sm mt-3">Creative design, 3D motion and systems that scale. Available for senior product and brand engagements.</p>
                 <nav aria-label="Footer navigation" class="mt-6">
                     <ul class="grid grid-cols-2 gap-2 text-sm text-gray-300">
                         <li><a href="#work" class="hover:underline">Work</a></li>
                         <li><a href="#services" class="hover:underline">Services</a></li>
                         <li><a href="#process" class="hover:underline">Process</a></li>
-                        <li><a href="#contact" class="hover:underline">Contact</a></li>
+                        <li><a href="https://m.me/jahidads1" class="hover:underline">Contact</a></li>
                     </ul>
                 </nav>
             </div>
 
             <!-- Social rows (preserve .footer-social-row and data-count) -->
             <div class="col-span-1 lg:col-span-1">
+                <h4 class="text-sm text-gray-400 uppercase tracking-wide hidden md:block">Follow Me</h4>
                 <div class="footer-socials" aria-label="Social accounts">
-                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="footer-social-row" data-count="12345" aria-label="LinkedIn profile">
+                    <a href="https://bd.linkedin.com/in/jahidads" target="_blank" rel="noopener" class="footer-social-row" data-count="12345" aria-label="LinkedIn profile">
                         <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6C1.1 6 0 4.88 0 3.5C0 2.12 1.1 1 2.48 1C3.86 1 4.98 2.12 4.98 3.5ZM0.5 8.5H4.5V24H0.5V8.5ZM8.5 8.5H12.2V10.2H12.3C12.9 9.1 14.4 8 16.6 8C21.2 8 22 10.9 22 15.5V24H18V16.5C18 14 17.8 11.3 15 11.3C12.2 11.3 11.8 13.7 11.8 16.4V24H8.5V8.5Z" fill="currentColor"/></svg></span>
                         <span class="label">LinkedIn</span>
                         <span class="count">12.3k</span>
                     </a>
 
-                    <a href="https://twitter.com/" target="_blank" rel="noopener" class="footer-social-row mt-2" data-count="9876" aria-label="Twitter profile">
-                        <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.46 6c-.77.35-1.6.59-2.46.7a4.3 4.3 0 0 0 1.88-2.38 8.59 8.59 0 0 1-2.72 1.04 4.28 4.28 0 0 0-7.3 3.9A12.15 12.15 0 0 1 3.16 4.6a4.28 4.28 0 0 0 1.33 5.72 4.25 4.25 0 0 1-1.94-.54v.05a4.28 4.28 0 0 0 3.43 4.2c-.45.12-.92.18-1.41.18-.34 0-.66-.03-.98-.09a4.29 4.29 0 0 0 4 2.97A8.59 8.59 0 0 1 2 19.54 12.12 12.12 0 0 0 8.29 21c7.55 0 11.69-6.26 11.69-11.68 0-.18-.01-.36-.02-.53A8.35 8.35 0 0 0 22.46 6z" fill="currentColor"/></svg></span>
-                        <span class="label">Twitter</span>
-                        <span class="count">9.8k</span>
+                    <a href="https://www.facebook.com/jahidads1" target="_blank" rel="noopener" class="footer-social-row mt-2" data-count="34200" aria-label="Facebook profile">
+                        <span class="icon" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.99H8.077v-2.888h2.361V9.413c0-2.334 1.392-3.619 3.523-3.619.998 0 2.042.179 2.042.179v2.246h-1.149c-1.134 0-1.486.704-1.486 1.425v1.712h2.526l-.404 2.888h-2.122V21.88C18.343 21.127 22 16.99 22 12z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="label">Facebook</span>
+                        <span class="count">34.2k</span>
                     </a>
 
-                    <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="footer-social-row mt-2" data-count="20400" aria-label="Instagram profile">
+                    <a href="https://www.instagram.com/jahidads" target="_blank" rel="noopener" class="footer-social-row mt-2" data-count="20400" aria-label="Instagram profile">
                         <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5a4.5 4.5 0 1 0 .001 9.001A4.5 4.5 0 0 0 12 7.5zm4.8-.9a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z" fill="currentColor"/></svg></span>
                         <span class="label">Instagram</span>
                         <span class="count">20.4k</span>
@@ -2367,7 +2360,7 @@
             </div>
             <!-- ads section -->
             <div class="col-span-1 lg:col-span-1">
-                <h4 class="text-sm text-gray-400 uppercase tracking-wide">Ads</h4>
+                <h4 class="text-sm text-gray-400 uppercase tracking-wide">Ads Section</h4>
                 <p class="text-xs text-gray-400 mt-2">We provide a platform to promote your product or service here.</p>
                 <!-- Feature: Ad Banner Example -->
                 <div class="mt-4">
