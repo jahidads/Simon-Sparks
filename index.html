@@ -1,0 +1,2975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Sparks - Creative Design</title>
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/?size=64&id=nyffmioibnWL&format=png">
+    <meta name="description" content="Simon Sparks - Creative Design & Visual Art Portfolio">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        /* Custom styles to match the design */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0D1E;
+            color: #E0E0E0;
+            overflow-x: hidden;
+            cursor: none; /* Hide default cursor on pointer devices */
+        }
+        
+        /* Custom Cursor */
+        .cursor-dot, .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #A855F7;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #A855F7;
+        }
+        body:hover .cursor-dot, body:hover .cursor-outline {
+            opacity: 1;
+        }
+        .cursor-outline.hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: rgba(168, 85, 247, 0.2);
+        }
+
+        /* Disable custom cursor on touch / coarse pointer devices (mobile) */
+        @media (hover: none) and (pointer: coarse) {
+            /* restore normal cursor behavior for touch devices */
+            body { cursor: auto; }
+            /* hide the custom cursor elements completely */
+            .cursor-dot, .cursor-outline { display: none !important; opacity: 0 !important; }
+        }
+
+        /* Hero section video background */
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+        }
+        
+        /* Overlay for video background */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(10, 13, 30, 0.7);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Custom gradient text */
+        .gradient-text {
+            background: linear-gradient(90deg, #4F46E5, #A855F7, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Custom glowing effect for the logo */
+        .logo-glow {
+            animation: pulse-glow 4s infinite ease-in-out;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 5px rgba(79, 70, 229, 0.4)) drop-shadow(0 0 15px rgba(168, 85, 247, 0.3));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 15px rgba(79, 70, 229, 0.6)) drop-shadow(0 0 30px rgba(168, 85, 247, 0.5));
+                transform: scale(1.05);
+            }
+        }
+
+        /* Custom card styling */
+        .card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover {
+            background-color: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Custom button styling */
+        .btn-outline {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Fade-in animation for scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom form input styling */
+        .form-input {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #A855F7;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.3);
+        }
+
+        /* Mobile menu styles and animations */
+        .mobile-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 40;
+            opacity: 0;
+            transition: opacity 250ms ease;
+            pointer-events: none;
+        }
+
+        .mobile-backdrop.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-menu-panel {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            width: min(92vw, 320px);
+            background: linear-gradient(180deg, rgba(10,13,30,0.98), rgba(15,18,40,0.98));
+            box-shadow: -30px 0 60px rgba(0,0,0,0.6);
+            z-index: 50;
+            transform: translateX(110%);
+            transition: transform 350ms cubic-bezier(.2,.9,.2,1);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu-panel.show {
+            transform: translateX(0%);
+        }
+
+        .mobile-menu-panel .close-btn {
+            align-self: flex-end;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #E6E6FA;
+            padding: 0.35rem 0.6rem;
+            border-radius: 0.5rem;
+            transition: transform 160ms ease, background 160ms ease;
+        }
+
+        .mobile-menu-panel .close-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .mobile-menu-links a {
+            display: block;
+            padding: 0.75rem 0.5rem;
+            color: #d1d5db;
+            border-radius: 0.5rem;
+            transform: translateX(10px);
+            opacity: 0;
+            transition: transform 300ms cubic-bezier(.2,.9,.2,1), opacity 300ms ease;
+        }
+
+        .mobile-menu-links a.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* Slight focus styles for accessibility */
+        .mobile-menu-links a:focus {
+            outline: 3px solid rgba(168,85,247,0.16);
+            outline-offset: 2px;
+        }
+
+        /* Social accounts (full-width rows) in mobile menu */
+        .mobile-socials {
+            margin-top: 0px; /* stick to bottom */
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: stretch;
+        }
+        
+        .mt-auto {
+            margin-top: 0px !important;
+        }
+
+        .mobile-social-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0.8rem;
+            border-radius: 0.75rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            color: #d1d5db;
+            text-decoration: none;
+            transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+            transform: translateY(12px);
+            opacity: 0;
+        }
+
+        .mobile-social-row .icon {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            background: rgba(255,255,255,0.03);
+            flex-shrink: 0;
+        }
+
+        .mobile-social-row .label {
+            flex: 1 1 auto;
+            font-weight: 600;
+            color: #e6e6ff;
+            font-size: 0.95rem;
+        }
+
+        .mobile-social-row .count {
+            font-weight: 700;
+            color: #a78bfa;
+            font-feature-settings: "tnum" 1;
+            min-width: 56px;
+            text-align: right;
+        }
+
+        .mobile-social-row.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-social-row:hover {
+            transform: translateY(-4px) scale(1.01);
+            background: rgba(168,85,247,0.06);
+            box-shadow: 0 8px 24px rgba(168,85,247,0.06);
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-80 backdrop-blur-md border-b border-white/10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#about" class="flex items-center space-x-2">
+                <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM16.632 9.368C16.822 9.558 16.92 9.81 16.92 10.074C16.92 10.338 16.822 10.59 16.632 10.78L13.414 14H16C16.552 14 17 14.448 17 15C17 15.552 16.552 16 16 16H8C7.448 16 7 15.552 7 15C7 14.448 7.448 14 8 14H10.586L7.368 10.78C6.988 10.399 6.988 9.761 7.368 9.368C7.761 8.988 8.399 8.988 8.78 9.368L12 12.586L15.22 9.368C15.601 8.988 16.239 8.988 16.632 9.368Z" fill="url(#logo-gradient)"/>
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#A855F7"/>
+                            <stop offset="1" stop-color="#4F46E5"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="text-xl font-bold text-white">SIMON SPARKS</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-6" aria-label="Primary">
+                    <a href="#about" class="text-gray-300 hover:text-white transition flex items-center gap-3">
+                        <div class="w-full flex items-center justify-center gap-3">
+                            <span aria-hidden="true" class="w-6 h-6 text-indigo-400 inline-flex items-center justify-center">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20a8 8 0 0116 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="text-center">About</span>
+                        </div>
+                    </a>
+                    <a href="#work" class="text-gray-300 hover:text-white transition flex items-center gap-3">
+                        <div class="w-full flex items-center justify-center gap-3">
+                            <span aria-hidden="true" class="w-6 h-6 text-purple-400 inline-flex items-center justify-center">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 7h16v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="text-center">Work</span>
+                        </div>
+                    </a>
+                    <a href="#services" class="text-gray-300 hover:text-white transition flex items-center gap-3">
+                        <div class="w-full flex items-center justify-center gap-3">
+                            <span aria-hidden="true" class="w-6 h-6 text-pink-400 inline-flex items-center justify-center">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20.4 15.2l-1.6-1.6.7-2.1-2-1-2.1.7L12 8 10.6 9.2 8.5 8.5l-1 2 2.1.7.7 2.1L3.6 16.8 5 18.2l2.1-1 .7 2.1 2-1 1.4 1.2 1.4-1.2 2 1 .7-2.1 2.1 1z" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                </svg>
+                            </span>
+                            <span>Services</span>
+                        </div>
+                    </a>
+                    <a href="#process" class="text-gray-300 hover:text-white transition flex items-center gap-3">
+                        <div class="w-full flex items-center justify-center gap-3">
+                            <span aria-hidden="true" class="w-6 h-6 text-teal-400 inline-flex items-center justify-center">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 12h4l3 8 4-16 3 8h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Process</span>
+                        </div>
+                    </a>
+
+                    <a href="#contact" class="text-gray-300 hover:text-white transition flex items-center gap-3">
+                        <div class="w-full flex items-center justify-center gap-3">
+                            <span aria-hidden="true" class="w-6 h-6 text-indigo-300 inline-flex items-center justify-center">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 7.5v9A2.5 2.5 0 005.5 19h13A2.5 2.5 0 0021 16.5v-9A2.5 2.5 0 0018.5 5h-13A2.5 2.5 0 003 7.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 7l-9 6-9-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Contact</span>
+                        </div>
+                    </a>
+
+                <!-- Accessible dropdown: UI Design -->
+                <details class="relative" id="ui-design-dd">
+                    <summary class="flex items-center gap-2 text-gray-300 hover:text-white cursor-pointer list-none transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500/40" aria-haspopup="true" aria-controls="ui-design-panel">
+                        <span class="w-full flex items-center justify-center gap-3">
+                            <svg class="w-6 h-6 text-indigo-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7 9h10M7 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>UI Design</span>
+                        </span>
+                        <svg class="w-4 h-4 text-gray-400 ml-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
+                    </summary>
+                    <div id="ui-design-panel" class="absolute left-0 mt-3 w-56 bg-[rgba(10,13,30,0.98)] border border-white/6 rounded-xl p-3 shadow-lg z-50">
+                        <nav role="menu" aria-label="UI Design">
+                            <a role="menuitem" href="https://jahidads.github.io/Portfolio/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                                <span class="text-indigo-400 w-5 h-5 inline-flex items-center justify-center" aria-hidden="true">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="3" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                        <rect x="13" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                        <rect x="3" y="13" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                        <rect x="13" y="13" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                    </svg>
+                                </span>
+                                <div class="text-sm text-gray-200">
+                                    <div class="font-medium">UI Portfolio</div>
+                                    <div class="text-xs text-gray-400">Prebuilt components</div>
+                                </div>
+                            </a>
+
+                            <a role="menuitem" href="https://jahidads.github.io/LLM-Portfolio/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                                <span class="text-indigo-400 w-5 h-5 inline-flex items-center justify-center" aria-hidden="true">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="4" y="5" width="16" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                                        <path d="M8 9h8M8 13h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-sm text-gray-200">
+                                    <div class="font-medium">LLM Portfolio</div>
+                                    <div class="text-xs text-gray-400">Low-fidelity layouts</div>
+                                </div>
+                            </a>
+
+                            <a role="menuitem" href="https://jahidads.github.io/DesignNest.co/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                                <span class="text-indigo-400 w-5 h-5 inline-flex items-center justify-center" aria-hidden="true">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M9 8l6 4-6 4V8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    </svg>
+                                </span>
+                                <div class="text-sm text-gray-200">
+                                    <div class="font-medium">DesignNest.co</div>
+                                    <div class="text-xs text-gray-400">Interactive demos</div>
+                                </div>
+                            </a>
+                        </nav>
+                    </div>
+                </details>
+
+                <!-- Accessible dropdown: Features -->
+                <details class="relative" id="features-dd">
+                    <summary class="flex items-center gap-2 text-gray-300 hover:text-white cursor-pointer list-none transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500/40" aria-haspopup="true" aria-controls="features-panel">
+                    <span class="w-full flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6 text-indigo-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7l3-7z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                        <span>Features</span>
+                    </span>
+                        <svg class="w-4 h-4 text-gray-400 ml-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
+                    </summary>
+                    <div id="features-panel" class="absolute left-0 mt-3 w-64 bg-[rgba(10,13,30,0.98)] border border-white/6 rounded-xl p-4 shadow-lg z-50">
+                        <a href="https://jahidads.github.io/3D-Model/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                            <span class="text-purple-400 w-6 h-6 inline-flex items-center justify-center">🎞️</span>
+                            <div class="text-sm text-gray-200">
+                                <div class="font-medium">3D Model</div>
+                                <div class="text-xs text-gray-400">3D Solar System Exploration Model</div>
+                            </div>
+                        </a>
+                        <a href="https://jahidads.github.io/gmailtricks.bd/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                            <span class="text-indigo-400 w-6 h-6 inline-flex items-center justify-center">🤖</span>
+                            <div class="text-sm text-gray-200">
+                                <div class="font-medium">Generative</div>
+                                <div class="text-xs text-gray-400">Dot and Aliase gmail generation</div>
+                            </div>
+                        </a>
+                        <a href="https://jahidads.github.io/BrandCraft/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                            <span class="text-pink-400 w-6 h-6 inline-flex items-center justify-center">🎨</span>
+                            <div class="text-sm text-gray-200">
+                                <div class="font-medium">Branding</div>
+                                <div class="text-xs text-gray-400">Identity & visual systems</div>
+                            </div>
+                        </a>
+                    </div>
+                </details>
+
+                <div class="ml-2">
+                    <a href="https://wa.me/8801308839759" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 text-white rounded-lg text-sm font-semibold shadow hover:from-indigo-500 hover:to-pink-500 transition focus:outline-none focus:ring-2 focus:ring-purple-500/40">
+                        Hire Me
+                    </a>
+                </div>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open mobile menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+            
+            <!-- Mobile Menu Backdrop + Panel -->
+            <div id="mobile-backdrop" class="mobile-backdrop" aria-hidden="true"></div>
+
+            <aside id="mobile-menu" class="mobile-menu-panel md:hidden" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <a href="#about" class="flex items-center space-x-2" aria-label="Home">
+                            <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM16.632 9.368C16.822 9.558 16.92 9.81 16.92 10.074C16.92 10.338 16.822 10.59 16.632 10.78L13.414 14H16C16.552 14 17 14.448 17 15C17 15.552 16.552 16 16 16H8C7.448 16 7 15.552 7 15C7 14.448 7.448 14 8 14H10.586L7.368 10.78C6.988 10.399 6.988 9.761 7.368 9.368C7.761 8.988 8.399 8.988 8.78 9.368L12 12.586L15.22 9.368C15.601 8.988 16.239 8.988 16.632 9.368Z" fill="url(#logo-gradient)"/>
+                            </svg>
+                            <span class="text-lg font-bold text-white">SIMON SPARKS</span>
+                        </a>
+                    </div>
+                    <button id="mobile-menu-close" class="close-btn" aria-label="Close mobile menu">✕</button>
+                </div>
+
+                <nav class="mobile-menu-links mt-6 flex flex-col gap-1" aria-label="Mobile">
+                    <a href="#about" class="text-gray-300 hover:text-white transition flex items-center gap-3">
+                        <div class="w-full flex items-center justify-left-aligned gap-3">
+                            <span aria-hidden="true" class="w-6 h-6 text-indigo-400 inline-flex items-center justify-center">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20a8 8 0 0116 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>About</span>
+                        </div>
+                    </a>
+
+                    <a href="#work" class="text-gray-300 hover:text-white transition flex items-center gap-3">
+                        <div class="w-full flex items-left-aligned justify-left-aligned gap-3">
+                            <span aria-hidden="true" class="w-6 h-6 text-purple-400 inline-flex items-center justify-center">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 7h16v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Work</span>
+                        </div>
+                    </a>
+
+                    <a href="#services" class="text-gray-300 hover:text-white transition flex items-center gap-3">
+                        <div class="w-full flex items-left-aligned justify-left-aligned gap-3">
+                            <span aria-hidden="true" class="w-6 h-6 text-pink-400 inline-flex items-center justify-center">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20.4 15.2l-1.6-1.6.7-2.1-2-1-2.1.7L12 8 10.6 9.2 8.5 8.5l-1 2 2.1.7.7 2.1L3.6 16.8 5 18.2l2.1-1 .7 2.1 2-1 1.4 1.2 1.4-1.2 2 1 .7-2.1 2.1 1z" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                </svg>
+                            </span>
+                            <span>Services</span>
+                        </div>
+                    </a>
+
+                    <a href="#process" class="text-gray-300 hover:text-white transition flex items-center gap-3">
+                        <div class="w-full flex items-left-aligned justify-left-aligned gap-3">
+                            <span aria-hidden="true" class="w-6 h-6 text-teal-400 inline-flex items-center justify-center">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 12h4l3 8 4-16 3 8h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Process</span>
+                        </div>
+                    </a>
+
+                    <a href="#contact" class="text-gray-300 hover:text-white transition flex items-center gap-3">
+                        <div class="w-full flex items-left-aligned justify-left-aligned gap-3">
+                            <span aria-hidden="true" class="w-6 h-6 text-indigo-300 inline-flex items-center justify-center">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 7.5v9A2.5 2.5 0 005.5 19h13A2.5 2.5 0 0021 16.5v-9A2.5 2.5 0 0018.5 5h-13A2.5 2.5 0 003 7.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 7l-9 6-9-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Contact</span>
+                        </div>
+                    </a>
+                <!-- Accessible dropdown mobile: UI Design -->
+                <details class="relative" id="ui-design-dd">
+                    <summary class="flex items-center gap-2 text-gray-300 hover:text-white cursor-pointer list-none transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500/40" aria-haspopup="true" aria-controls="ui-design-panel">
+                        <span class="w-full flex items-left-aligned justify-left-aligned gap-3">
+                            <svg class="w-6 h-6 text-indigo-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7 9h10M7 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>UI Design</span>
+                        </span>
+                        <svg class="w-4 h-4 text-gray-400 ml-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
+                    </summary>
+                    <div id="ui-design-panel" class="absolute left-0 mt-3 w-56 bg-[rgba(10,13,30,0.98)] border border-white/6 rounded-xl p-3 shadow-lg z-50">
+                            <a href="https://jahidads.github.io/Portfolio/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                                <span class="text-indigo-400 w-5 h-5 inline-flex items-center justify-center" aria-hidden="true">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="3" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                        <rect x="13" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                        <rect x="3" y="13" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                        <rect x="13" y="13" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                    </svg>
+                                </span>
+                                <div class="text-sm text-gray-200">
+                                    <div class="font-medium">UI Portfolio</div>
+                                    <div class="text-xs text-gray-400">Prebuilt components</div>
+                                </div>
+                            </a>
+
+                            <a role="menuitem" href="https://jahidads.github.io/LLM-Portfolio/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                                <span class="text-indigo-400 w-5 h-5 inline-flex items-center justify-center" aria-hidden="true">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="4" y="5" width="16" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                                        <path d="M8 9h8M8 13h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-sm text-gray-200">
+                                    <div class="font-medium">LLM Portfolio</div>
+                                    <div class="text-xs text-gray-400">Low-fidelity layouts</div>
+                                </div>
+                            </a>
+
+                            <a role="menuitem" href="https://jahidads.github.io/DesignNest.co/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                                <span class="text-indigo-400 w-5 h-5 inline-flex items-center justify-center" aria-hidden="true">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M9 8l6 4-6 4V8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    </svg>
+                                </span>
+                                <div class="text-sm text-gray-200">
+                                    <div class="font-medium">DesignNest.co</div>
+                                    <div class="text-xs text-gray-400">Interactive demos</div>
+                                </div>
+                            </a>
+                        </div>
+                    </details>
+
+                <!-- Accessible dropdown mobile: Features -->
+                <details class="relative" id="features-dd">
+                    <summary class="flex items-center gap-2 text-gray-300 hover:text-white cursor-pointer list-none transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500/40" aria-haspopup="true" aria-controls="features-panel">
+                    <span class="w-full flex items-left-aligned justify-left-aligned gap-3">
+                        <svg class="w-6 h-6 text-indigo-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7l3-7z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                        <span>Features</span>
+                    </span>
+                        <svg class="w-4 h-4 text-gray-400 ml-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
+                    </summary>
+                    <div id="features-panel" class="absolute left-0 mt-3 w-64 bg-[rgba(10,13,30,0.98)] border border-white/6 rounded-xl p-4 shadow-lg z-50">
+                        <a href="https://jahidads.github.io/3D-Model/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                            <span class="text-purple-400 w-6 h-6 inline-flex items-center justify-center">🎞️</span>
+                            <div class="text-sm text-gray-200">
+                                <div class="font-medium">3D Model</div>
+                                <div class="text-xs text-gray-400">3D Solar System Exploration Model</div>
+                            </div>
+                        </a>
+                        <a href="https://jahidads.github.io/gmailtricks.bd/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                            <span class="text-indigo-400 w-6 h-6 inline-flex items-center justify-center">🤖</span>
+                            <div class="text-sm text-gray-200">
+                                <div class="font-medium">Generative</div>
+                                <div class="text-xs text-gray-400">Dot and Aliase gmail generation</div>
+                            </div>
+                        </a>
+                        <a href="https://jahidads.github.io/BrandCraft/" class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-white/5 focus:bg-white/5 focus:outline-none">
+                            <span class="text-pink-400 w-6 h-6 inline-flex items-center justify-center">🎨</span>
+                            <div class="text-sm text-gray-200">
+                                <div class="font-medium">Branding</div>
+                                <div class="text-xs text-gray-400">Identity & visual systems</div>
+                            </div>
+                        </a>
+                    </div>
+                </details>
+                <div class="mt-4">
+                    <a href="https://wa.me/8801308839759" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 text-white rounded-lg text-sm font-semibold shadow hover:from-indigo-500 hover:to-pink-500 transition focus:outline-none focus:ring-2 focus:ring-purple-500/40 text-center w-full justify-center">
+                        Hire Me
+                    </a>
+                </div>
+                </nav>
+
+                <!-- Social accounts (full rows with counts) -->
+                 <div class="mt-auto">
+                    <!-- Separator -->
+                    <hr class="border-white/10 mb-4">
+                    <div class="px-2 mb-2 text-sm text-gray-400 uppercase tracking-wide text-center">Follow me</div>
+                </div>
+                <div class="mobile-socials" aria-label="Social accounts">
+                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="mobile-social-row" data-count="12345" aria-label="LinkedIn profile">
+                        <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6C1.1 6 0 4.88 0 3.5C0 2.12 1.1 1 2.48 1C3.86 1 4.98 2.12 4.98 3.5ZM0.5 8.5H4.5V24H0.5V8.5ZM8.5 8.5H12.2V10.2H12.3C12.9 9.1 14.4 8 16.6 8C21.2 8 22 10.9 22 15.5V24H18V16.5C18 14 17.8 11.3 15 11.3C12.2 11.3 11.8 13.7 11.8 16.4V24H8.5V8.5Z" fill="currentColor"/></svg></span>
+                        <span class="label">LinkedIn</span>
+                        <span class="count">12.3k</span>
+                    </a>
+
+                    <a href="https://twitter.com/" target="_blank" rel="noopener" class="mobile-social-row" data-count="9876" aria-label="Twitter profile">
+                        <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.46 6c-.77.35-1.6.59-2.46.7a4.3 4.3 0 0 0 1.88-2.38 8.59 8.59 0 0 1-2.72 1.04 4.28 4.28 0 0 0-7.3 3.9A12.15 12.15 0 0 1 3.16 4.6a4.28 4.28 0 0 0 1.33 5.72 4.25 4.25 0 0 1-1.94-.54v.05a4.28 4.28 0 0 0 3.43 4.2c-.45.12-.92.18-1.41.18-.34 0-.66-.03-.98-.09a4.29 4.29 0 0 0 4 2.97A8.59 8.59 0 0 1 2 19.54 12.12 12.12 0 0 0 8.29 21c7.55 0 11.69-6.26 11.69-11.68 0-.18-.01-.36-.02-.53A8.35 8.35 0 0 0 22.46 6z" fill="currentColor"/></svg></span>
+                        <span class="label">Twitter</span>
+                        <span class="count">9.8k</span>
+                    </a>
+
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="mobile-social-row" data-count="20400" aria-label="Instagram profile">
+                        <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5a4.5 4.5 0 1 0 .001 9.001A4.5 4.5 0 0 0 12 7.5zm4.8-.9a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z" fill="currentColor"/></svg></span>
+                        <span class="label">Instagram</span>
+                        <span class="count">20.4k</span>
+                    </a>
+
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener" class="mobile-social-row" data-count="34200" aria-label="Facebook profile">
+                        <span class="icon" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.99H8.077v-2.888h2.361V9.413c0-2.334 1.392-3.619 3.523-3.619.998 0 2.042.179 2.042.179v2.246h-1.149c-1.134 0-1.486.704-1.486 1.425v1.712h2.526l-.404 2.888h-2.122V21.88C18.343 21.127 22 16.99 22 12z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="label">Facebook</span>
+                        <span class="count">34.2k</span>
+                    </a>
+                </div>
+            </aside>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="about" class="hero-section text-center min-h-screen flex items-center justify-center py-20 md:py-32">
+            <video autoplay loop muted playsinline id="bg-video">
+                <source src="https://cdn.pixabay.com/video/2023/11/26/190776-888535446_tiny.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="container mx-auto px-6 hero-content">
+                <img src="https://cdn.pixabay.com/animation/2024/02/21/04/07/04-07-03-475_512.gif" alt="3D Abstract Logo" class="w-48 h-48 md:w-64 md:h-64 mx-auto mb-8 logo-glow" onerror="this.onerror=null;this.src='https://placehold.co/256x256/0A0D1E/FFFFFF?text=S';">
+                <div class="inline-block group text-center">
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight fade-in" style="transition-delay:150ms;"></h1>
+                        SIMON SPARKS
+                    </h1>
+                    <p class="mt-4 text-lg md:text-xl text-gray-400 fade-in" style="transition-delay:300ms;">
+                        CREATIVE DESIGN & VISUAL ART
+                    </p>
+
+                    <!-- animated gradient underline (scales in on hover) -->
+                    <span class="block h-1 mt-6 w-28 mx-auto bg-gradient-to-r from-indigo-500 via-pink-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
+
+                    <!-- subtle CTA with hover lift and pulse to draw attention -->
+                    <div class="mt-8">
+                        <a href="#work" class="inline-block px-6 py-3 rounded-lg text-sm font-semibold text-white btn-outline transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl animate-pulse">
+                            See My Work
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-16 fade-in" id="stats-section" aria-label="Statistics">
+            <style>
+            /* Scoped styles for enhanced stats visuals & animations */
+            #stats-section .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(1, minmax(0,1fr));
+                gap: 1.5rem;
+            }
+            @media (min-width: 640px) { #stats-section .stats-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+            @media (min-width: 768px) { #stats-section .stats-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+            #stats-section .stat-card {
+                position: relative;
+                overflow: visible;
+                padding: 1.25rem;
+                border-radius: 1rem;
+                background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+                border: 1px solid rgba(255,255,255,0.04);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 0.6rem;
+                transition: transform 350ms cubic-bezier(.2,.9,.2,1), box-shadow 350ms ease, border-color 350ms ease;
+                transform-origin: center;
+            }
+
+            #stats-section .stat-card:hover {
+                transform: translateY(-8px) scale(1.02);
+                box-shadow: 0 18px 40px rgba(168,85,247,0.08);
+                border-color: rgba(168,85,247,0.14);
+            }
+
+            /* Animated decorative ring */
+            #stats-section .ring {
+                width: 80px;
+                height: 80px;
+                display: inline-block;
+                position: relative;
+                --ring-rotate: 0deg;
+            }
+
+            #stats-section .ring svg {
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+
+            #stats-section .ring .bg {
+                stroke: rgba(255,255,255,0.04);
+                stroke-width: 6;
+                fill: none;
+            }
+
+            #stats-section .ring .accent {
+                stroke: url(#gradRing);
+                stroke-width: 6;
+                stroke-linecap: round;
+                fill: none;
+                stroke-dasharray: 314;
+                stroke-dashoffset: 314;
+                transform-origin: 50% 50%;
+                transition: stroke-dashoffset 1000ms cubic-bezier(.2,.9,.2,1), transform 900ms cubic-bezier(.2,.9,.2,1);
+                filter: drop-shadow(0 6px 18px rgba(168,85,247,0.12));
+            }
+
+            /* small rotating sparkle */
+            #stats-section .spark {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: none;
+            }
+
+            /* visible state triggers drawing & entrance */
+            #stats-section.visible .stat-card { opacity: 1; transform: translateY(0); }
+            #stats-section.visible .stat-card .accent {
+                stroke-dashoffset: var(--dash-offset, 80);
+            }
+            #stats-section.visible .stat-card {
+                animation: floatIn 700ms cubic-bezier(.2,.9,.2,1);
+            }
+
+            @keyframes floatIn {
+                from { opacity: 0; transform: translateY(24px) scale(0.99); }
+                to { opacity: 1; transform: translateY(0) scale(1); }
+            }
+
+            /* subtle continuous rotation for rings */
+            #stats-section .ring-rotate {
+                animation: ringRotate 8s linear infinite;
+            }
+
+            @keyframes ringRotate {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+
+            /* Stat number styling */
+            #stats-section .stat-number {
+                font-size: 2.25rem;
+                line-height: 1;
+                margin: 0;
+            }
+
+            /* small label */
+            #stats-section .stat-label {
+                color: #c7c7d6;
+                font-size: 0.95rem;
+            }
+
+            /* Decorative blurs for depth */
+            #stats-section .glow {
+                position: absolute;
+                width: 160px;
+                height: 160px;
+                border-radius: 50%;
+                filter: blur(30px);
+                opacity: 0.08;
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            #stats-section .glow.purple { background: radial-gradient(circle at 30% 30%, rgba(168,85,247,0.9), rgba(79,70,229,0.6)); left: -20px; top: -40px; }
+            #stats-section .glow.pink { background: radial-gradient(circle at 70% 70%, rgba(236,72,153,0.9), rgba(168,85,247,0.5)); right: -20px; bottom: -40px; }
+
+            /* small responsive adjustments */
+            @media (min-width: 1024px) {
+                #stats-section .stat-number { font-size: 3rem; }
+                #stats-section .ring { width: 96px; height: 96px; }
+            }
+            </style>
+
+            <div class="container mx-auto px-6 relative">
+            <!-- decorative glows -->
+            <div class="glow purple" aria-hidden="true"></div>
+            <div class="glow pink" aria-hidden="true"></div>
+
+            <div class="text-center mb-8">
+                <p class="text-sm uppercase tracking-widest text-gray-400">NUMBERS THAT MATTER</p>
+                <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white">Exclusive Design Metrics</h2>
+                <p class="mt-3 text-gray-400 max-w-2xl mx-auto">Handpicked metrics highlighting craftsmanship, reach and experience — animated for impact.</p>
+            </div>
+
+            <div class="stats-grid" role="list">
+                <!-- card template: --dash-offset computed to reveal ring; values tuned to feel dynamic -->
+                <div class="stat-card" role="listitem" style="--dash-offset: 60;">
+                <div class="ring ring-rotate" aria-hidden="true">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gradRing" x1="0" x2="1">
+                        <stop offset="0" stop-color="#A855F7"/>
+                        <stop offset="1" stop-color="#EC4899"/>
+                        </linearGradient>
+                    </defs>
+                    <circle class="bg" cx="50" cy="50" r="45"></circle>
+                    <circle class="accent" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                    <div class="spark" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8" stroke="url(#gradRing)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+
+                <h3 class="stat-number gradient-text" data-target="150" aria-live="polite">0</h3>
+                <p class="stat-label">Projects Completed</p>
+                </div>
+
+                <div class="stat-card" role="listitem" style="--dash-offset: 50;">
+                <div class="ring ring-rotate" aria-hidden="true">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="bg" cx="50" cy="50" r="45"></circle>
+                    <circle class="accent" cx="50" cy="50" r="45"></circle>
+                    <defs>
+                        <linearGradient id="gradRing2" x1="0" x2="1">
+                        <stop offset="0" stop-color="#4F46E5"/>
+                        <stop offset="1" stop-color="#A855F7"/>
+                        </linearGradient>
+                    </defs>
+                    </svg>
+                </div>
+
+                <h3 class="stat-number gradient-text" data-target="95" aria-live="polite">0</h3>
+                <p class="stat-label">Happy Clients</p>
+                </div>
+
+                <div class="stat-card" role="listitem" style="--dash-offset: 40;">
+                <div class="ring ring-rotate" aria-hidden="true">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="bg" cx="50" cy="50" r="45"></circle>
+                    <circle class="accent" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                </div>
+
+                <h3 class="stat-number gradient-text" data-target="12" aria-live="polite">0</h3>
+                <p class="stat-label">Years of Experience</p>
+                </div>
+
+                <div class="stat-card" role="listitem" style="--dash-offset: 70;">
+                <div class="ring ring-rotate" aria-hidden="true">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="bg" cx="50" cy="50" r="45"></circle>
+                    <circle class="accent" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                </div>
+
+                <h3 class="stat-number gradient-text" data-target="30" aria-live="polite">0</h3>
+                <p class="stat-label">Awards Won</p>
+                </div>
+
+                <div class="stat-card" role="listitem" style="--dash-offset: 10;">
+                <div class="ring ring-rotate" aria-hidden="true">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="bg" cx="50" cy="50" r="45"></circle>
+                    <circle class="accent" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                </div>
+
+                <h3 class="stat-number gradient-text" data-target="500" aria-live="polite">0</h3>
+                <p class="stat-label">Cups of Coffee</p>
+                </div>
+
+                <div class="stat-card" role="listitem" style="--dash-offset: 35;">
+                <div class="ring ring-rotate" aria-hidden="true">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="bg" cx="50" cy="50" r="45"></circle>
+                    <circle class="accent" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                </div>
+
+                <h3 class="stat-number gradient-text" data-target="20" aria-live="polite">0</h3>
+                <p class="stat-label">Countries Served</p>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Grid 1 -->
+        <section id="work" class="py-16 fade-in">
+            <div class="container mx-auto px-6">
+             <div class="text-center mb-12">
+                <p class="text-sm uppercase tracking-widest text-gray-400">MY WORK</p>
+                <h2 class="mt-4 text-3xl md:text-5xl font-bold text-white">Featured Projects & Features</h2>
+                <p class="mt-2 text-gray-400 max-w-2xl mx-auto">Selected UI/UX work, experimental features and 3D explorations demonstrating craftsmanship and system thinking.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" role="list">
+                <!-- UI/UX Design Card -->
+                <div class="card p-6 rounded-2xl flex flex-col items-center text-center" role="listitem" aria-label="UI/UX Design project">
+                <div class="p-4 bg-indigo-500/10 rounded-xl mb-4">
+                    <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>
+                </div>
+                <h3 class="font-semibold text-lg text-white">UI/UX Design</h3>
+                <p class="text-gray-400 text-sm mt-1">User flows · Wireframes · Hi‑fi prototypes</p>
+
+                <!-- quick tags -->
+                <div class="mt-3 flex flex-wrap gap-2" aria-hidden="true">
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-indigo-200">Design System</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-pink-200">Responsive</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-teal-200">Accessibility</span>
+                </div>
+
+                <!-- mini gallery -->
+                <div class="mt-4 grid grid-cols-4 gap-2 w-full">
+                    <img src="https://cdn.pixabay.com/animation/2023/09/05/23/41/23-41-35-228_512.gif" class="col-span-2 rounded-lg h-20 object-cover transform transition-transform duration-200 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/320x160/0A0D1E/FFFFFF?text=Wireframe';">
+                   
+                    <img src="https://cdn.pixabay.com/animation/2023/06/28/20/48/20-48-43-121_512.gif" class="col-span-2 rounded-lg h-20 object-cover transform transition-transform duration-200 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/320x160/0A0D1E/FFFFFF?text=Design';">
+                </div>
+
+                <!-- short features -->
+                <ul class="mt-4 text-sm text-gray-300 space-y-2">
+                    <li class="flex items-start gap-3">
+                        <span class="inline-flex items-center justify-center w-6 h-6 bg-indigo-600/10 rounded-sm text-indigo-300">✓</span>
+                        <span>Rapid prototyping & usability testing</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="inline-flex items-center justify-center w-6 h-6 bg-pink-600/10 rounded-sm text-pink-300">⚡</span>
+                        <span>Design systems,reusable components</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="inline-flex items-center justify-center w-6 h-6 bg-teal-600/10 rounded-sm text-teal-300">🔒</span>
+                        <span>Accessibility best practices</span>
+                    </li>
+                </ul>
+
+                <!-- CTAs -->
+                <div class="mt-4 flex gap-3 w-full">
+                    <a href="https://jahidads.github.io/NinjaTech/" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white flex-1" aria-label="View service">View Project</a>
+                    <a href="https://github.com/jahidads/NinjaTech" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white" aria-label="View source code">Source</a>
+                </div>
+                </div>
+
+                <!-- Feature Highlights Card -->
+                <div class="card p-6 rounded-2xl flex flex-col items-start" role="listitem" aria-label="Feature highlights">
+                <div class="flex items-center justify-between w-full mb-4">
+                    <div class="flex items-center gap-3">
+                    <div class="p-3 bg-pink-500/10 rounded-lg">
+                        <svg class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"/></svg>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-semibold">Feature Highlights</h4>
+                        <p class="text-gray-400 text-xs">Interactive components & micro‑interactions</p>
+                    </div>
+                    </div>
+                    <span class="text-xs text-indigo-300 font-medium">New</span>
+                </div>
+
+                <ul class="mt-2 space-y-3 w-full">
+                    <li class="flex items-start gap-3">
+                    <span class="inline-flex items-center justify-center w-8 h-8 bg-indigo-600/10 rounded-md text-indigo-300">✓</span>
+                    <div>
+                        <div class="text-sm text-white font-medium">Adaptive Navigation</div>
+                        <div class="text-xs text-gray-400">Contextual menus for multi‑device flows</div>
+                    </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                    <span class="inline-flex items-center justify-center w-8 h-8 bg-pink-600/10 rounded-md text-pink-300">⚡</span>
+                    <div>
+                        <div class="text-sm text-white font-medium">Micro Animations</div>
+                        <div class="text-xs text-gray-400">Delightful, performance‑friendly motion</div>
+                    </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                    <span class="inline-flex items-center justify-center w-8 h-8 bg-teal-600/10 rounded-md text-teal-300">🔒</span>
+                    <div>
+                        <div class="text-sm text-white font-medium">Accessible Forms</div>
+                        <div class="text-xs text-gray-400">Keyboard + screen reader friendly</div>
+                    </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                    <span class="inline-flex items-center justify-center w-8 h-8 bg-purple-600/10 rounded-md text-purple-300">🎨</span>
+                    <div>
+                        <div class="text-sm text-white font-medium">Custom Illustrations</div>
+                        <div class="text-xs text-gray-400">Unique visuals tailored to your brand</div>
+                    </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                    <span class="inline-flex items-center justify-center w-8 h-8 bg-yellow-600/10 rounded-md text-yellow-300">🚀</span>
+                    <div>
+                        <div class="text-sm text-white font-medium">Performance Optimization</div>
+                        <div class="text-xs text-gray-400">Faster load times and smoother interactions</div>
+                    </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                    <span class="inline-flex items-center justify-center w-8 h-8 bg-green-600/10 rounded-md text-green-300">💡</span>
+                    <div>
+                        <div class="text-sm text-white font-medium">Innovative Solutions</div>
+                        <div class="text-xs text-gray-400">Creative ideas to elevate your project</div>
+                    </div>
+                    </li>
+                </ul>
+                <div class="mt-4 flex gap-3 w-full">
+                    <a href="https://jahidads.github.io/NeuroSecure.org/" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white flex-1" aria-label="View UI/UX service">View Project</a>
+                    <a href="https://github.com/jahidads/NeuroSecure.org" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white" aria-label="Read case study">Source</a>
+                </div>
+                </div>
+
+                <!-- Visual / Artwork Card -->
+                <div class="card p-6 rounded-2xl flex flex-col items-start text-left" role="listitem" aria-label="Abstract artwork">
+                    <div class="w-full rounded-xl overflow-hidden mb-4 relative">
+                        <img src="https://cdn.pixabay.com/animation/2023/05/20/21/52/21-52-42-295_512.gif" class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105" alt="Abstract Art" onerror="this.onerror=null;this.src='https://placehold.co/400x300/1E293B/FFFFFF?text=Art';">
+                        <span class="absolute left-3 top-3 px-2 py-1 text-xs font-semibold rounded-full bg-indigo-600/80 text-white">New</span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+
+                    <h3 class="text-white font-semibold text-lg">Abstract Artwork</h3>
+                    <p class="text-gray-400 text-sm mt-1">Generative 3D art with motion design.</p>
+
+                    <div class="mt-4 flex flex-wrap gap-2" aria-hidden="true">
+                        <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-indigo-200">Generative</span>
+                        <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-pink-200">3D</span>
+                        <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-teal-200">Motion</span>
+                    </div>
+
+                <div class="mt-4 flex gap-3 w-full">
+                    <a href="https://jahidads.github.io/PixelPatch/" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white flex-1" aria-label="View service">View Project</a>
+                    <a href="https://github.com/jahidads/PixelPatch" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white" aria-label="View source code">Source</a>
+                </div>
+                </div>
+
+                <!-- 3D Modeling Card -->
+                <div class="card p-6 rounded-2xl flex flex-col items-center text-center" role="listitem" aria-label="3D Modeling project">
+                    <div class="p-4 bg-pink-500/10 rounded-xl mb-4">
+                        <svg class="w-8 h-8 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l3 7H9l3-7zM6 10l6 12 6-12"/>
+                        </svg>
+                    </div>
+
+                    <h3 class="font-semibold text-lg text-white">3D Modeling & Animation</h3>
+                    <p class="text-gray-400 text-sm mt-1">Blender · Cinema4D · glTF · WebGL exports</p>
+
+                    <!-- mini gallery -->
+                <div class="mt-4 grid grid-cols-5 gap-2 w-full">
+                    <img src="https://cdn.pixabay.com/animation/2025/09/16/08/14/08-14-48-933_512.gif" class="col-span-2 rounded-lg h-20 object-cover transform transition-transform duration-200 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/320x160/0A0D1E/FFFFFF?text=Wireframe';">
+                    <img src="https://cdn.pixabay.com/animation/2023/01/26/04/06/04-06-10-848_512.gif" alt="Prototype thumb" class="rounded-lg h-20 object-cover transform transition-transform duration-200 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/160x160/0A0D1E/FFFFFF?text=Proto';">
+                    <img src="https://cdn.pixabay.com/animation/2025/09/16/10/17/10-17-29-638_512.gif" class="col-span-2 rounded-lg h-20 object-cover transform transition-transform duration-200 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/320x160/0A0D1E/FFFFFF?text=Design';">
+                </div>
+
+                    <!-- quick capability tags -->
+                    <div class="mt-4 flex flex-wrap gap-2 justify-center" aria-hidden="true">
+                        <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-pink-200">PBR Materials</span>
+                        <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-indigo-200">Real-time</span>
+                        <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-teal-200">Interactive</span>
+                    </div>
+
+                    <!-- short features -->
+                    <ul class="mt-4 text-sm text-gray-300 space-y-2 w-full text-left">
+                        <li class="flex items-start gap-3">
+                            <span class="inline-flex items-center justify-center w-6 h-6 bg-pink-600/10 rounded-sm text-pink-300">✓</span>
+                            <span>Optimized exports for web (glTF/GLB)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="inline-flex items-center justify-center w-6 h-6 bg-indigo-600/10 rounded-sm text-indigo-300">⚡</span>
+                            <span>LOD & atlas packing for performance</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="inline-flex items-center justify-center w-6 h-6 bg-teal-600/10 rounded-sm text-teal-300">🔧</span>
+                            <span>Shader tweaks & post‑processing</span>
+                        </li>
+                    </ul>
+
+                    <!-- CTAs -->
+                    <div class="mt-5 flex gap-3 w-full">
+                        <a href="https://jahidads.github.io/Animation2/" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white flex-1" aria-label="View 3D project">View Project</a>
+                        <a href="https://github.com/jahidads/Animation2" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white" aria-label="View 3D source">Source</a>
+                    </div>
+                </div>
+
+                <!-- Generative / AI Art Card -->
+                <div class="card p-6 rounded-2xl flex flex-col items-center text-center" role="listitem" aria-label="Generative AI art">
+                <div class="p-4 bg-purple-500/10 rounded-xl mb-4">
+                    <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M7 7v10M17 7v10"/></svg>
+                </div>
+                <h3 class="font-semibold text-lg text-white">Generative</h3>
+                <p class="text-gray-400 text-sm mt-1">AI‑assisted visual systems & experiments</p>
+                </div>
+
+                <!-- Case Study Teaser Card -->
+                <div class="card p-6 rounded-2xl flex flex-col justify-between" role="listitem" aria-label="Case study">
+                <div>
+                    <h3 class="text-white font-bold">Case Study: Studio App</h3>
+                    <p class="text-gray-400 text-sm mt-2">End‑to‑end work including research, design systems and handoff.</p>
+                </div>
+                <div class="mt-6 flex items-center gap-3">
+                    <a href="https://jahidads.github.io/DevCaseHub/" class="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-sm font-semibold">Read Case Study</a>
+                    <span class="text-xs text-gray-400">5 min</span>
+                </div>
+                </div>
+
+                <!-- Experimental Features Card -->
+                <div class="card p-6 rounded-2xl flex flex-col items-center text-center" role="listitem" aria-label="Experimental features">
+                <div class="p-4 bg-blue-500/10 rounded-xl mb-4">
+                    <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                </div>
+                <h3 class="font-semibold text-lg text-white">Experimental Features</h3>
+                <p class="text-gray-400 text-sm mt-1">Cutting-edge tools and techniques for innovative design.</p>
+                </div>
+
+            <!-- Interactive Prototype Card -->
+                <div class="card p-6 rounded-2xl flex flex-col items-center text-center" role="listitem" aria-label="Interactive prototype">
+                <div class="p-4 bg-green-500/10 rounded-xl mb-4">
+                    <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <h3 class="font-semibold text-lg text-white">Interactive Prototype</h3>
+                <p class="text-gray-400 text-sm mt-1">Clickable prototypes for user testing and feedback.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-16 fade-in">
+            <div class="container mx-auto px-6 text-center">
+            <p class="text-sm uppercase tracking-widest text-gray-400">WHAT I DO</p>
+            <h2 class="mt-4 text-3xl md:text-5xl font-bold text-white">Services & Features</h2>
+
+            <div class="mt-8 max-w-4xl mx-auto">
+                <p class="text-gray-400 max-w-2xl mx-auto">End-to-end design and production: from strategy and UX to 3D, motion and polished handoffs for engineering teams. Choose the services you need or request a custom bundle.</p>
+            </div>
+
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
+                <!-- Service 1: UI/UX Design -->
+                <div class="card p-8 rounded-2xl text-left" role="listitem" aria-label="UI and UX design service">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 rounded-lg bg-indigo-500/10">
+                    <svg class="w-6 h-6 text-indigo-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">UI / UX Design</h3>
+                </div>
+
+                <p class="mt-4 text-gray-400">Crafting intuitive, accessible and delightful interfaces with strong systems thinking.</p>
+
+                <ul class="mt-4 space-y-2 text-sm text-gray-300">
+                    <li class="flex items-start gap-3"><span class="inline-flex items-center justify-center w-6 h-6 bg-indigo-600/10 rounded-sm text-indigo-300">✓</span><span>Design systems & component libraries</span></li>
+                    <li class="flex items-start gap-3"><span class="inline-flex items-center justify-center w-6 h-6 bg-pink-600/10 rounded-sm text-pink-300">⚡</span><span>Interactive prototypes (Figma / Web)</span></li>
+                    <li class="flex items-start gap-3"><span class="inline-flex items-center justify-center w-6 h-6 bg-teal-600/10 rounded-sm text-teal-300">🔒</span><span>Accessibility audits & improvements</span></li>
+                </ul>
+
+                <div class="mt-6 flex gap-3">
+                    <a href="#work" class="flex-1 inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white">See UI Work</a>
+                    <a href="#contact" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-indigo-600 to-pink-600 text-white">Request Quote</a>
+                </div>
+                </div>
+
+                <!-- Service 2: 3D & Motion -->
+                <div class="card p-8 rounded-2xl text-left" role="listitem" aria-label="3D animation and motion design">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 rounded-lg bg-pink-500/10">
+                    <svg class="w-6 h-6 text-pink-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">3D Animation & Motion</h3>
+                </div>
+
+                <p class="mt-4 text-gray-400">Real-time experiences, hero animations and export-ready assets for the web.</p>
+
+                <ul class="mt-4 space-y-2 text-sm text-gray-300">
+                    <li class="flex items-start gap-3"><span class="inline-flex items-center justify-center w-6 h-6 bg-pink-600/10 rounded-sm text-pink-300">🎞️</span><span>GLB / glTF exports optimised for web</span></li>
+                    <li class="flex items-start gap-3"><span class="inline-flex items-center justify-center w-6 h-6 bg-indigo-600/10 rounded-sm text-indigo-300">⚙️</span><span>LOD, atlas packing & performance tuning</span></li>
+                    <li class="flex items-start gap-3"><span class="inline-flex items-center justify-center w-6 h-6 bg-teal-600/10 rounded-sm text-teal-300">✨</span><span>Motion design & micro‑interactions</span></li>
+                </ul>
+
+                <div class="mt-6 flex gap-3">
+                    <a href="#work" class="flex-1 inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white">View 3D Projects</a>
+                    <a href="#contact" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-pink-600 to-purple-600 text-white">Book a Demo</a>
+                </div>
+                </div>
+
+                <!-- Service 3: Branding & Strategy -->
+                <div class="card p-8 rounded-2xl text-left" role="listitem" aria-label="Branding and identity">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 rounded-lg bg-yellow-500/10">
+                    <svg class="w-6 h-6 text-yellow-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3L4 21h16L12 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Branding & Identity</h3>
+                </div>
+
+                <p class="mt-4 text-gray-400">Strategic identity systems that scale across touchpoints and products.</p>
+
+                <ul class="mt-4 space-y-2 text-sm text-gray-300">
+                    <li class="flex items-start gap-3"><span class="inline-flex items-center justify-center w-6 h-6 bg-yellow-600/10 rounded-sm text-yellow-300">🧭</span><span>Brand strategy & positioning</span></li>
+                    <li class="flex items-start gap-3"><span class="inline-flex items-center justify-center w-6 h-6 bg-indigo-600/10 rounded-sm text-indigo-300">🎨</span><span>Logo, visual language & guidelines</span></li>
+                    <li class="flex items-start gap-3"><span class="inline-flex items-center justify-center w-6 h-6 bg-green-600/10 rounded-sm text-green-300">📦</span><span>Complete brand handoff package</span></li>
+                </ul>
+
+                <div class="mt-6 flex gap-3">
+                    <a href="#work" class="flex-1 inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium btn-outline text-white">See Identities</a>
+                    <a href="#contact" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-yellow-500 to-pink-500 text-white">Start a Project</a>
+                </div>
+                </div>
+            </div>
+
+            <!-- Advanced features / packages -->
+            <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="card p-6 rounded-2xl lg:col-span-2 text-left">
+                <h4 class="text-lg font-semibold text-white">Advanced Features & Deliverables</h4>
+                <p class="mt-2 text-gray-400 text-sm">Pick the capabilities you need — everything is designed to integrate with engineering workflows.</p>
+
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="p-3 rounded-lg bg-[rgba(255,255,255,0.02)] border border-white/6">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-md bg-indigo-600/10 text-indigo-300">DS</div>
+                        <div>
+                        <div class="font-medium text-white">Design Systems</div>
+                        <div class="text-xs text-gray-400">Tokens, components, docs & versioning</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="p-3 rounded-lg bg-[rgba(255,255,255,0.02)] border border-white/6">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-md bg-pink-600/10 text-pink-300">PX</div>
+                        <div>
+                        <div class="font-medium text-white">Prototyping</div>
+                        <div class="text-xs text-gray-400">Clickable flows for research & testing</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="p-3 rounded-lg bg-[rgba(255,255,255,0.02)] border border-white/6">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-md bg-teal-600/10 text-teal-300">ACC</div>
+                        <div>
+                        <div class="font-medium text-white">Accessibility</div>
+                        <div class="text-xs text-gray-400">WCAG audits & remediation guidance</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="p-3 rounded-lg bg-[rgba(255,255,255,0.02)] border border-white/6">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-md bg-green-600/10 text-green-300">H</div>
+                        <div>
+                        <div class="font-medium text-white">Handoff</div>
+                        <div class="text-xs text-gray-400">Spec sheets, redlines, and starter code</div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-wrap gap-2">
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-indigo-200">Figma</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-pink-200">Blender</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-teal-200">Three.js</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-yellow-200">Brand Kits</span>
+                </div>
+                </div>
+
+                <div class="card p-6 rounded-2xl text-left">
+                <h4 class="text-lg font-semibold text-white">Packages & Extras</h4>
+                <p class="mt-2 text-gray-400 text-sm">Flexible engagement models — hourly, fixed, or retainer.</p>
+
+                <details class="mt-4" aria-details="Package details">
+                    <summary class="cursor-pointer text-sm font-medium text-white flex items-center justify-between">
+                    Starter — Essentials
+                    <span class="text-xs text-gray-400">from $2k</span>
+                    </summary>
+                    <div class="mt-3 text-sm text-gray-300">
+                    <ul class="space-y-1">
+                        <li>Kickoff workshop</li>
+                        <li>3 screens / 1 prototype</li>
+                        <li>Basic brand token set</li>
+                    </ul>
+                    </div>
+                </details>
+
+                <details class="mt-3">
+                    <summary class="cursor-pointer text-sm font-medium text-white flex items-center justify-between">
+                    Pro — Product
+                    <span class="text-xs text-gray-400">from $7k</span>
+                    </summary>
+                    <div class="mt-3 text-sm text-gray-300">
+                    <ul class="space-y-1">
+                        <li>Design system starter</li>
+                        <li>High fidelity prototypes</li>
+                        <li>3D hero animation (optional)</li>
+                    </ul>
+                    </div>
+                </details>
+
+                <div class="mt-5">
+                    <a href="#contact" class="w-full inline-flex items-center justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-600 text-white font-semibold">Request a Proposal</a>
+                </div>
+                </div>
+            </div>
+
+            </div>
+        </section>
+        
+        <!-- Process Section -->
+        <section id="process" class="py-16 fade-in">
+            <style>
+            /* Process animations (scoped) */
+            #process .process-grid { display: grid; grid-template-columns: repeat(1,1fr); gap: 2rem; }
+            @media (min-width:768px){ #process .process-grid { grid-template-columns: repeat(4,1fr);} }
+
+            /* step card base */
+            #process .process-step {
+                transform: translateY(20px) scale(0.995);
+                opacity: 0;
+                transition: transform 600ms cubic-bezier(.2,.9,.2,1), opacity 600ms ease, box-shadow 300ms ease;
+                will-change: transform, opacity;
+                text-align: center;
+            }
+
+            /* reveal when scrolled into view (parent .fade-in gets .visible by site script) */
+            .fade-in.visible #process .process-step,
+            #process.visible .process-step { /* fallback */
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            /* subtle floating / hover */
+            #process .icon-wrap {
+                width: 80px;
+                height: 80px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 9999px;
+                transition: transform 320ms ease, box-shadow 320ms ease;
+                box-shadow: 0 6px 18px rgba(2,6,23,0.35);
+            }
+            #process .process-step:hover .icon-wrap {
+                transform: translateY(-6px) scale(1.06);
+                box-shadow: 0 22px 48px rgba(168,85,247,0.12);
+            }
+
+            /* dashed border drift (animated stroke-dashoffset) */
+            #process .dashed {
+                border-style: dashed;
+                border-width: 2px;
+                border-radius: 9999px;
+                position: relative;
+                display: inline-block;
+                padding: 8px;
+            }
+            #process .dashed::after{
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: inherit;
+                pointer-events:none;
+            }
+
+            /* tiny icon wobble to imply motion design step */
+            @keyframes wobble {
+                0% { transform: rotate(-4deg) translateY(0); }
+                50% { transform: rotate(4deg) translateY(-4px); }
+                100% { transform: rotate(-4deg) translateY(0); }
+            }
+            #process .wobble { animation: wobble 3.2s ease-in-out infinite; transform-origin: 50% 50%; }
+
+            /* accent pulse */
+            @keyframes softPulse {
+                0% { box-shadow: 0 0 0 0 rgba(168,85,247,0.14); }
+                70% { box-shadow: 0 0 0 18px rgba(168,85,247,0.02); }
+                100% { box-shadow: 0 0 0 0 rgba(168,85,247,0); }
+            }
+            #process .pulse-accent { animation: softPulse 2.6s ease-in-out infinite; border-radius: 9999px; }
+
+            /* staggered reveal using CSS variables set inline below */
+            #process .process-step { transition-delay: var(--delay, 0ms); }
+
+            /* hover lift for whole card */
+            #process .process-step-card {
+                padding: 1rem 0.5rem;
+                border-radius: 1rem;
+                background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+                border: 1px solid rgba(255,255,255,0.04);
+                transition: transform 320ms cubic-bezier(.2,.9,.2,1), box-shadow 320ms ease, border-color 320ms ease;
+            }
+            #process .process-step-card:hover {
+                transform: translateY(-8px) scale(1.02);
+                box-shadow: 0 18px 40px rgba(79,70,229,0.06);
+                border-color: rgba(168,85,247,0.12);
+            }
+
+            /* Respect reduced motion */
+            @media (prefers-reduced-motion: reduce) {
+                #process .wobble, #process .pulse-accent { animation: none; }
+                #process .process-step, .fade-in { transition: none; transform: none; opacity: 1; }
+            }
+            </style>
+
+            <div class="container mx-auto px-6 text-center">
+            <p class="text-sm uppercase tracking-widest text-gray-400">HOW I WORK</p>
+            <h2 class="mt-4 text-3xl md:text-5xl font-bold text-white">My Creative Process</h2>
+                <!-- Client logos strip -->
+                <div class="logo-strip mt-6" aria-hidden="true">
+                    <img src="https://img.icons8.com/?size=48&id=20906&format=png">
+                    <img src="https://img.icons8.com/?size=48&id=20907&format=png">
+                    <img src="https://img.icons8.com/?size=48&id=20908&format=png">
+                    <img src="https://img.icons8.com/?size=48&id=20909&format=png">
+                    <img src="https://img.icons8.com/?size=48&id=20910&format=png">
+                    <img src="https://img.icons8.com/?size=48&id=20911&format=png">
+                    <img src="https://img.icons8.com/?size=48&id=20912&format=png">
+                    <img src="https://img.icons8.com/?size=48&id=20913&format=png">
+                </div>
+
+            <div class="mt-12 process-grid" role="list" aria-label="Process steps">
+                <!-- Step 1 -->
+                <div class="process-step" style="--delay:80ms" role="listitem" aria-label="Discovery step">
+                <div class="process-step-card">
+                    <div class="mb-4">
+                    <div class="dashed p-5 inline-flex items-center justify-center">
+                        <div class="icon-wrap pulse-accent" aria-hidden="true">
+                        <svg class="w-8 h-8 text-purple-400 wobble" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        </div>
+                    </div>
+                    </div>
+                    <h3 class="font-semibold text-lg text-white">1. Discovery</h3>
+                    <p class="text-gray-400 text-sm mt-1">Understand goals, constraints, and audience through research.</p>
+                </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="process-step" style="--delay:160ms" role="listitem" aria-label="Design step">
+                <div class="process-step-card">
+                    <div class="mb-4">
+                    <div class="dashed p-5 inline-flex items-center justify-center">
+                        <div class="icon-wrap" aria-hidden="true">
+                        <svg class="w-8 h-8 text-indigo-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        </div>
+                    </div>
+                    </div>
+                    <h3 class="font-semibold text-lg text-white">2. Design</h3>
+                    <p class="text-gray-400 text-sm mt-1">Wireframes, visual systems, and interaction prototypes.</p>
+                </div>
+                </div>
+
+                <!-- Step 3 (Animation / Motion Design) -->
+                <div class="process-step" style="--delay:240ms" role="listitem" aria-label="Animation and motion design step">
+                <div class="process-step-card">
+                    <div class="mb-4">
+                    <div class="dashed p-5 inline-flex items-center justify-center">
+                        <div class="icon-wrap" aria-hidden="true">
+                        <!-- motion icon with subtle animated paths -->
+                        <svg class="w-8 h-8 text-pink-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                            <path class="motion-path" d="M4 12h4l3 8 4-16 3 8h4" opacity="0.95"/>
+                            <path d="M10 20l4-16" opacity="0.6"/>
+                            </g>
+                        </svg>
+                        </div>
+                    </div>
+                    </div>
+                    <h3 class="font-semibold text-lg text-white">3. Animation</h3>
+                    <p class="text-gray-400 text-sm mt-1">Motion design, micro‑interactions and animated prototypes.</p>
+                </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="process-step" style="--delay:320ms" role="listitem" aria-label="Deploy step">
+                <div class="process-step-card">
+                    <div class="mb-4">
+                    <div class="dashed p-5 inline-flex items-center justify-center">
+                        <div class="icon-wrap" aria-hidden="true">
+                        <svg class="w-8 h-8 text-teal-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        </div>
+                    </div>
+                    </div>
+                    <h3 class="font-semibold text-lg text-white">4. Deploy</h3>
+                    <p class="text-gray-400 text-sm mt-1">Polish, QA, handoff and ship with monitoring in place.</p>
+                </div>
+                </div>
+            </div>
+
+            <!-- optional micro-copy -->
+            <p class="mt-8 text-sm text-gray-400 max-w-2xl mx-auto">Every project is iterated with measurable goals — animation and motion are applied strategically to improve clarity and delight, not for decoration.</p>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-16 fade-in" id="testimonials-section">
+            <style>
+            /* Scoped testimonial styles */
+            #testimonials-section .testimonial-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            @media(min-width: 768px) {
+                #testimonials-section .testimonial-grid {
+                grid-template-columns: 2fr 1fr;
+                gap: 1.5rem;
+                }
+            }
+
+            #testimonials-section .testimonial-card {
+                background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+                border: 1px solid rgba(255,255,255,0.04);
+                padding: 1.25rem;
+                border-radius: 1rem;
+                transition: transform 300ms cubic-bezier(.2,.9,.2,1), box-shadow 300ms ease, border-color 300ms ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            #testimonials-section .testimonial-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 18px 40px rgba(79,70,229,0.06); }
+
+            /* active highlight for featured testimonial */
+            #testimonials-section .testimonial-card.active {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 0 36px 80px rgba(168,85,247,0.12);
+                border-color: rgba(168,85,247,0.16);
+            }
+
+            .quote-mark {
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                font-size: 5rem;
+                line-height: 0.7;
+                color: rgba(168,85,247,0.06);
+                pointer-events: none;
+                user-select: none;
+            }
+
+            .stars { color: #F59E0B; display: inline-flex; gap: 2px; align-items: center; }
+
+            .client-meta { display:flex; align-items:center; gap:0.75rem; margin-top:0.8rem; }
+            .client-meta img { width:48px; height:48px; border-radius:9999px; object-fit:cover; }
+
+            .testimonial-excerpt { color: #cbd5e1; margin-top:0.5rem; }
+
+            /* right column list */
+            .testimonial-list { display:flex; flex-direction:column; gap:0.75rem; }
+            .testimonial-mini {
+                display:flex;
+                gap:0.75rem;
+                align-items:flex-start;
+                cursor:pointer;
+                padding:0.75rem;
+                border-radius:0.75rem;
+                transition: background 200ms ease, transform 200ms ease;
+                border:1px solid rgba(255,255,255,0.03);
+                background: rgba(255,255,255,0.01);
+            }
+            .testimonial-mini:hover { background: rgba(255,255,255,0.03); transform: translateY(-4px); }
+            .testimonial-mini img { width:40px; height:40px; border-radius:9999px; object-fit:cover; }
+
+            .logo-strip { display:flex; gap:1rem; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:1rem; opacity:0.9; }
+            .logo-strip img { height:28px; filter:grayscale(60%); opacity:0.9; }
+
+            /* collapsed/expanded details for accessibility */
+            .case-link { margin-top:0.75rem; display:inline-block; color:#A78BFA; font-weight:600; text-decoration:none; }
+            .case-link:focus { outline:3px solid rgba(167,139,250,0.16); outline-offset:4px; }
+
+            /* small responsive tweak */
+            @media(min-width:1024px){
+                .quote-mark { font-size:6.5rem; right:2rem; top:2rem; color: rgba(168,85,247,0.05); }
+            }
+            </style>
+
+            <div class="container mx-auto px-6">
+            <div class="text-center mb-8">
+                <p class="text-sm uppercase tracking-widest text-gray-400">WHAT CLIENTS SAY</p>
+                <h2 class="mt-4 text-3xl md:text-5xl font-bold text-white">Testimonials & Success Stories</h2>
+                <p class="mt-3 text-gray-400 max-w-2xl mx-auto">Real outcomes, measurable impact, and creative partnerships. Select a testimonial to view a short case study or explore logos from recent collaborators.</p>
+            </div>
+
+            <div class="testimonial-grid mt-12">
+                <!-- Featured (left) -->
+                <div>
+                <div class="testimonial-card active" data-index="0" id="featured-testimonial" aria-live="polite">
+                    <div class="quote-mark" aria-hidden="true">“</div>
+
+                    <div class="flex items-start gap-4">
+                    <div>
+                        <div class="stars" aria-hidden="true">
+                        <!-- five-star visual -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.847L19.335 24 12 20.201 4.665 24 6 15.595 0 9.748l8.332-1.73z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.847L19.335 24 12 20.201 4.665 24 6 15.595 0 9.748l8.332-1.73z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.847L19.335 24 12 20.201 4.665 24 6 15.595 0 9.748l8.332-1.73z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.847L19.335 24 12 20.201 4.665 24 6 15.595 0 9.748l8.332-1.73z"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.847L19.335 24 12 20.201 4.665 24 6 15.595 0 9.748l8.332-1.73z"/></svg>
+                        </div>
+
+                        <h3 class="mt-4 text-xl font-semibold text-white">"Transformed our product — faster launches, happier users."</h3>
+
+                        <p class="testimonial-excerpt">Simon led the redesign of our core product, introduced a scalable design system and improved conversion by 28% within three months. The handoff to engineering was flawless.</p>
+
+                        <div class="client-meta">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe" onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=A';">
+                        <div>
+                            <div class="font-semibold text-white">John Doe</div>
+                            <div class="text-sm text-gray-400">CEO, TechCorp • <span class="text-xs text-indigo-300 font-medium">Case study</span></div>
+                            <a href="https://jahidads.github.io/Portfolio/" class="case-link" target="_blank" rel="noopener">Read the case study →</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- CTA Row -->
+                <div class="mt-6 flex gap-3">
+                    <a href="#contact" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-sm font-semibold">Work with Simon</a>
+                    <a href="#" id="write-review" class="inline-flex items-center justify-center px-4 py-2 rounded-lg btn-outline text-white text-sm font-semibold">Learn Our Team</a>
+                </div>
+                </div>
+
+                <!-- Selector list (right) -->
+                <div class="testimonial-list flex flex-row md:flex-col gap-3 items-center md:items-start overflow-x-auto md:overflow-visible py-2 md:py-0 px-3 md:px-0 snap-x snap-mandatory touch-pan-x" role="list" aria-label="Select testimonial">
+                    <button
+                        class="testimonial-mini snap-start w-auto p-2 rounded-lg overflow-hidden flex items-center gap-3 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-purple-500/40 border-2 border-transparent transition-shadow"
+                        data-index="0"
+                        role="button"
+                        aria-controls="featured-testimonial"
+                        aria-pressed="true"
+                        aria-label="Select testimonial: John Doe, CEO, TechCorp"
+                        type="button"
+                        title="John Doe — CEO, TechCorp"
+                    >
+                        <img
+                            src="https://randomuser.me/api/portraits/men/32.jpg"
+                            alt="John Doe"
+                            class="w-14 h-14 md:w-10 md:h-10 rounded-full object-cover flex-shrink-0"
+                            onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=J';"
+                        />
+                        <span class="text-left">
+                            <span class="font-medium text-white leading-tight block">John Doe</span>
+                            <span class="text-xs text-gray-400 block">CEO, TechCorp</span>
+                        </span>
+                    </button>
+
+                    <button
+                        class="testimonial-mini snap-start w-auto p-2 rounded-lg overflow-hidden flex items-center gap-3 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-purple-500/40 border-2 border-transparent transition-shadow"
+                        data-index="1"
+                        role="button"
+                        aria-controls="featured-testimonial"
+                        aria-pressed="false"
+                        aria-label="Select testimonial: Jane Smith, Marketing Director, Creative Inc."
+                        type="button"
+                        title="Jane Smith — Marketing Director, Creative Inc."
+                    >
+                        <img
+                            src="https://randomuser.me/api/portraits/women/44.jpg"
+                            alt="Jane Smith"
+                            class="w-14 h-14 md:w-10 md:h-10 rounded-full object-cover flex-shrink-0"
+                            onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=J';"
+                        />
+                        <span class="text-left">
+                            <span class="font-medium text-white leading-tight block">Jane Smith</span>
+                            <span class="text-xs text-gray-400 block">Marketing Director, Creative Inc.</span>
+                        </span>
+                    </button>
+
+                    <button
+                        class="testimonial-mini snap-start w-auto p-2 rounded-lg overflow-hidden flex items-center gap-3 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-purple-500/40 border-2 border-transparent transition-shadow"
+                        data-index="2"
+                        role="button"
+                        aria-controls="featured-testimonial"
+                        aria-pressed="false"
+                        aria-label="Select testimonial: Carlos Vega, Head of Product, Nova"
+                        type="button"
+                        title="Carlos Vega — Head of Product, Nova"
+                    >
+                        <img
+                            src="https://randomuser.me/api/portraits/men/75.jpg"
+                            alt="Carlos Vega"
+                            class="w-14 h-14 md:w-10 md:h-10 rounded-full object-cover flex-shrink-0"
+                            onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=C';"
+                        />
+                        <span class="text-left">
+                            <span class="font-medium text-white leading-tight block">Carlos Vega</span>
+                            <span class="text-xs text-gray-400 block">Head of Product, Nova</span>
+                        </span>
+                    </button>
+
+                    <button
+                        class="testimonial-mini snap-start w-auto p-2 rounded-lg overflow-hidden flex items-center gap-3 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-purple-500/40 border-2 border-transparent transition-shadow"
+                        data-index="3"
+                        role="button"
+                        aria-controls="featured-testimonial"
+                        aria-pressed="false"
+                        aria-label="Select testimonial: Mei Lin, Founder, Orbit"
+                        type="button"
+                        title="Mei Lin — Founder, Orbit"
+                    >
+                        <img
+                            src="https://randomuser.me/api/portraits/women/68.jpg"
+                            alt="Mei Lin"
+                            class="w-14 h-14 md:w-10 md:h-10 rounded-full object-cover flex-shrink-0"
+                            onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=M';"
+                        />
+                        <span class="text-left">
+                            <span class="font-medium text-white leading-tight block">Mei Lin</span>
+                            <span class="text-xs text-gray-400 block">Founder, Orbit</span>
+                        </span>
+                    </button>
+                </div>
+
+            <script>
+            (function(){
+                const featured = document.getElementById('featured-testimonial');
+                const minis = Array.from(document.querySelectorAll('#testimonials-section .testimonial-mini'));
+                const cardData = [
+                {
+                    stars:5,
+                    title: "Transformed our product — faster launches, happier users.",
+                    excerpt: "Simon led the redesign of our core product, introduced a scalable design system and improved conversion by 28% within three months. The handoff to engineering was flawless.",
+                    name: "John Doe",
+                    role: "CEO, TechCorp",
+                    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+                    caseUrl: "https://jahidads.github.io/Webinars/"
+                },
+                {
+                    stars:5,
+                    title: "Exceptional delivery and creative thinking.",
+                    excerpt: "Working with Simon was a breeze — he ramped up quickly, recommended pragmatic UX changes and delivered polished assets on time. Our campaign CTR doubled.",
+                    name: "Jane Smith",
+                    role: "Marketing Director, Creative Inc.",
+                    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+                    caseUrl: "https://jahidads.github.io/Blog/"
+                },
+                {
+                    stars:5,
+                    title: "Incredible 3D hero that elevated our homepage.",
+                    excerpt: "Simon produced a lightweight glTF hero with fallback considerations that significantly increased engagement without hurting performance.",
+                    name: "Carlos Vega",
+                    role: "Head of Product, Nova",
+                    avatar: "https://randomuser.me/api/portraits/men/75.jpg",
+                    caseUrl: "https://jahidads.github.io/DevTools/"
+                },
+                {
+                    stars:5,
+                    title: "Brand work that truly resonates.",
+                    excerpt: "From naming to visual language, the identity Simon crafted connected with our audience and improved recognition across channels.",
+                    name: "Mei Lin",
+                    role: "Founder, Orbit",
+                    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+                    caseUrl: "https://jahidads.github.io/BookHub/"
+                }
+                ];
+
+                let current = 0;
+                const updateFeatured = (index) => {
+                if (!featured) return;
+                current = index % cardData.length;
+                // replace inner content succinctly
+                const d = cardData[current];
+                featured.querySelector('.stars').innerHTML = Array.from({length: d.stars}).map(()=> '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400"><path d=\"M12 .587l3.668 7.431L24 9.748l-6 5.847L19.335 24 12 20.201 4.665 24 6 15.595 0 9.748l8.332-1.73z\"/></svg>').join('');
+                featured.querySelector('h3').textContent = d.title;
+                featured.querySelector('.testimonial-excerpt').textContent = d.excerpt;
+                const metaImg = featured.querySelector('.client-meta img');
+                metaImg.src = d.avatar;
+                metaImg.alt = d.name;
+                featured.querySelector('.client-meta .font-semibold').textContent = d.name;
+                featured.querySelector('.client-meta .text-sm').innerHTML = d.role + ' • <span class="text-xs text-indigo-300 font-medium">Case study</span>';
+                featured.querySelector('.case-link').href = d.caseUrl || '#';
+                // update active classes on minis
+                minis.forEach(m => m.classList.toggle('active', +m.getAttribute('data-index') === current));
+                };
+
+                // click & keyboard handlers for minis
+                minis.forEach(mini => {
+                mini.addEventListener('click', () => updateFeatured(+mini.dataset.index));
+                mini.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); updateFeatured(+mini.dataset.index); }});
+                });
+
+                // autoplay rotation
+                let rot = setInterval(() => {
+                updateFeatured((current + 1) % cardData.length);
+                }, 6000);
+
+                // pause on hover of featured
+                featured.addEventListener('mouseenter', () => clearInterval(rot));
+                featured.addEventListener('mouseleave', () => { rot = setInterval(() => updateFeatured((current + 1) % cardData.length), 6000); });
+
+                // init
+                updateFeatured(0);
+
+                // simple "leave a review" action
+                const reviewBtn = document.getElementById('write-review');
+                if (reviewBtn) {
+                reviewBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.open('https://forms.gle/', '_blank', 'noopener'); // placeholder review URL
+                });
+                }
+            })();
+            </script>
+        </section></div>
+        
+        <!-- News Section -->
+        <section class="py-16 fade-in" aria-labelledby="news-heading">
+            <div class="container mx-auto px-6 relative">
+            <!-- decorative glows -->
+            <div class="absolute -left-10 -top-10 w-40 h-40 rounded-full blur-3xl opacity-10 bg-gradient-to-tr from-indigo-600 to-pink-500 pointer-events-none" aria-hidden="true"></div>
+            <div class="absolute -right-10 -bottom-10 w-56 h-56 rounded-full blur-3xl opacity-8 bg-gradient-to-bl from-pink-500 to-purple-600 pointer-events-none" aria-hidden="true"></div>
+
+            <div class="text-center mb-12">
+                <p class="text-sm uppercase tracking-widest text-gray-400">FROM THE BLOG</p>
+                <h2 id="news-heading" class="mt-4 text-3xl md:text-5xl font-bold text-white">Latest News & Design Insights</h2>
+                <p class="mt-3 text-gray-400 max-w-2xl mx-auto">Deep dives, case studies and short guides — curated design thinking and practical tips to help you ship better interfaces and motion.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" role="list">
+                <!-- Card template -->
+                <article class="card rounded-2xl overflow-hidden transform transition duration-300 hover:-translate-y-3 hover:scale-[1.01] focus-within:ring-2 focus-within:ring-purple-500/30" role="listitem" aria-labelledby="post-1-title">
+                <div class="relative">
+                    <video autoplay loop muted playsinline class="w-full h-56 object-cover" poster="https://placehold.co/600x400/1E293B/FFFFFF?text=News">
+                        <source src="https://cdn.pixabay.com/video/2022/06/21/121424-724697274_tiny.mp4" type="video/mp4">
+                        <img src="https://placehold.co/600x400/1E293B/FFFFFF?text=News" alt="3D design hero">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute left-4 bottom-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/6 text-white backdrop-blur-sm">Design • 6 min</span>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-400 mb-2">July 24, 2024 — Article</p>
+                    <h3 id="post-1-title" class="text-xl font-bold text-white leading-snug">The Future of 3D Design in Interfaces</h3>
+                    <p class="mt-3 text-gray-300 text-sm line-clamp-3">How real-time 3D is reshaping hero experiences, performance strategies for web delivery, and pragmatic fallbacks for accessibility and SEO.</p>
+
+                    <div class="mt-4 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Author avatar" class="w-9 h-9 rounded-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=S';">
+                        <div>
+                        <div class="text-sm font-medium text-white">Simon Sparks</div>
+                        <div class="text-xs text-gray-400">Senior Product Designer</div>
+                        </div>
+                    </div>
+
+                    <a href="https://jahidads.github.io/solida/" class="inline-flex items-center text-sm font-semibold text-purple-400 hover:text-purple-300 focus:outline-none" aria-label="Read full article: The Future of 3D Design">
+                        Read More
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2" aria-hidden="true">
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-indigo-200">3D</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-pink-200">Performance</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-teal-200">Accessibility</span>
+                    </div>
+                </div>
+                </article>
+
+                <article class="card rounded-2xl overflow-hidden transform transition duration-300 hover:-translate-y-3 hover:scale-[1.01]" role="listitem" aria-labelledby="post-2-title">
+                <div class="relative">
+                    <video autoplay loop muted playsinline class="w-full h-56 object-cover" poster="https://placehold.co/600x400/1E293B/FFFFFF?text=News">
+                        <source src="https://cdn.pixabay.com/video/2019/08/02/25717-352026505_tiny.mp4" type="video/mp4">
+                        <img src="https://placehold.co/600x400/1E293B/FFFFFF?text=News" alt="3D design hero">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute left-4 bottom-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/6 text-white">UI • 5 min</span>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-400 mb-2">July 15, 2024 — Insights</p>
+                    <h3 id="post-2-title" class="text-xl font-bold text-white leading-snug">UI/UX Trends to Watch in 2024</h3>
+                    <p class="mt-3 text-gray-300 text-sm line-clamp-3">Micro-interactions, adaptive navigation and the rise of generative design patterns — practical examples and where to start.</p>
+
+                    <div class="mt-4 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author avatar" class="w-9 h-9 rounded-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=S';">
+                        <div>
+                        <div class="text-sm font-medium text-white">Ava Martinez</div>
+                        <div class="text-xs text-gray-400">Design Strategist</div>
+                        </div>
+                    </div>
+
+                    <a href="https://jahidads.github.io/PixelPatch/" class="inline-flex items-center text-sm font-semibold text-purple-400 hover:text-purple-300" aria-label="Read full article: UI/UX Trends to Watch">
+                        Read More
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2" aria-hidden="true">
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-indigo-200">UX</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-pink-200">Motion</span>
+                    </div>
+                </div>
+                </article>
+
+                <article class="card rounded-2xl overflow-hidden transform transition duration-300 hover:-translate-y-3 hover:scale-[1.01]" role="listitem" aria-labelledby="post-3-title">
+                <div class="relative">
+                    <video autoplay loop muted playsinline class="w-full h-56 object-cover" poster="https://placehold.co/600x400/1E293B/FFFFFF?text=News">
+                        <source src="https://cdn.pixabay.com/video/2024/03/01/202587-918431513_tiny.mp4" type="video/mp4">
+                        <img src="https://placehold.co/600x400/1E293B/FFFFFF?text=News" alt="3D design hero">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute left-4 bottom-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/6 text-white">Brand • 8 min</span>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-400 mb-2">July 5, 2024 — Guide</p>
+                    <h3 id="post-3-title" class="text-xl font-bold text-white leading-snug">Crafting a Memorable Brand: A Playbook</h3>
+                    <p class="mt-3 text-gray-300 text-sm line-clamp-3">A practical playbook for identity work: naming, tokens, and visual language that scales across products and channels.</p>
+
+                    <div class="mt-4 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Author avatar" class="w-9 h-9 rounded-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=S';">
+                        <div>
+                        <div class="text-sm font-medium text-white">Mei Lin</div>
+                        <div class="text-xs text-gray-400">Brand Consultant</div>
+                        </div>
+                    </div>
+
+                    <a href="https://jahidads.github.io/nexus/" class="inline-flex items-center text-sm font-semibold text-purple-400 hover:text-purple-300" aria-label="Read full article: Crafting a Memorable Brand">
+                        Read More
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2" aria-hidden="true">
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-indigo-200">Brand</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-yellow-200">Strategy</span>
+                    </div>
+                </div>
+                </article>
+
+                <!-- Extra design-focused post -->
+                <article class="card rounded-2xl overflow-hidden transform transition duration-300 hover:-translate-y-3 hover:scale-[1.01]" role="listitem" aria-labelledby="post-4-title">
+                <div class="relative">
+                    <video autoplay loop muted playsinline class="w-full h-56 object-cover" poster="https://placehold.co/600x400/1E293B/FFFFFF?text=News">
+                        <source src="https://cdn.pixabay.com/video/2017/11/12/12902-242487547_tiny.mp4" type="video/mp4">
+                        <img src="https://placehold.co/600x400/1E293B/FFFFFF?text=News" alt="3D design hero">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute left-4 bottom-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/6 text-white">System • 7 min</span>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-400 mb-2">June 28, 2024 — Tutorial</p>
+                    <h3 id="post-4-title" class="text-xl font-bold text-white leading-snug">Design Systems: Tokens & Theming</h3>
+                    <p class="mt-3 text-gray-300 text-sm line-clamp-3">A hands-on guide to tokens, theming, and practical patterns to keep your components consistent while enabling brand flexibility.</p>
+
+                    <div class="mt-4 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Author avatar" class="w-9 h-9 rounded-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=S';">
+                        <div>
+                        <div class="text-sm font-medium text-white">Carlos Vega</div>
+                        <div class="text-xs text-gray-400">Frontend Engineer</div>
+                        </div>
+                    </div>
+
+                    <a href="https://jahidads.github.io/PresentPro/" class="inline-flex items-center text-sm font-semibold text-purple-400 hover:text-purple-300" aria-label="Read full article: Design Systems">
+                        Read More
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2" aria-hidden="true">
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-indigo-200">Design System</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-teal-200">Tokens</span>
+                    </div>
+                </div>
+                </article>
+            
+                <article class="card rounded-2xl overflow-hidden transform transition duration-300 hover:-translate-y-3 hover:scale-[1.01]" role="listitem" aria-labelledby="post-4-title">
+                <div class="relative">
+                    <video autoplay loop muted playsinline class="w-full h-56 object-cover" poster="https://placehold.co/600x400/1E293B/FFFFFF?text=News">
+                        <source src="https://cdn.pixabay.com/video/2024/06/24/218066_tiny.mp4" type="video/mp4">
+                        <img src="https://placehold.co/600x400/1E293B/FFFFFF?text=News" alt="3D design hero">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute left-4 bottom-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/6 text-white">System • 25 min</span>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-400 mb-2"> September 28, 2024 — Tutorial</p>
+                    <h3 id="post-4-title" class="text-xl font-bold text-white leading-snug">Building a Design System: Design & Sorting</h3>
+                    <p class="mt-3 text-gray-300 text-sm line-clamp-3">Building a design system with tokens and theming capabilities can greatly enhance your application's flexibility and maintainability.</p>
+
+                    <div class="mt-4 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <img src="https://cdn.pixabay.com/photo/2017/11/19/07/30/girl-2961959_640.jpg" alt="Sonia Shing" class="w-9 h-9 rounded-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=S';">
+                        <div>
+                        <div class="text-sm font-medium text-white">Sonia Shing</div>
+                        <div class="text-xs text-gray-400">Building a Design System</div>
+                        </div>
+                    </div>
+
+                    <a href="https://jahidads.github.io/E-Book/" class="inline-flex items-center text-sm font-semibold text-purple-400 hover:text-purple-300" aria-label="Read full article: Design Systems">
+                        Read More
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2" aria-hidden="true">
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-indigo-200">Design resize</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-teal-200">Sorting</span>
+                    </div>
+                </div>
+                </article>
+
+                <article class="card rounded-2xl overflow-hidden transform transition duration-300 hover:-translate-y-3 hover:scale-[1.01]" role="listitem" aria-labelledby="post-4-title">
+                <div class="relative">
+                    <video autoplay loop muted playsinline class="w-full h-56 object-cover" poster="https://placehold.co/600x400/1E293B/FFFFFF?text=News">
+                        <source src="https://cdn.pixabay.com/video/2023/07/22/172838-847869864_tiny.mp4" type="video/mp4">
+                        <img src="https://placehold.co/600x400/1E293B/FFFFFF?text=News" alt="3D design hero">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute left-4 bottom-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/6 text-white">System • 13 min</span>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-400 mb-2">July 28, 2024 — Tutorial</p>
+                    <h3 id="post-4-title" class="text-xl font-bold text-white leading-snug">Building a font and Design System</h3>
+                    <p class="mt-3 text-gray-300 text-sm line-clamp-3">A hands-on guide to tokens, theming, and practical patterns to keep your components consistent while enabling brand flexibility.</p>
+
+                    <div class="mt-4 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <img src="https://cdn.pixabay.com/photo/2023/02/17/16/25/man-7796384_640.jpg" alt="jon devil" class="w-9 h-9 rounded-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/48x48/1E293B/FFFFFF?text=S';">
+                        <div>
+                        <div class="text-sm font-medium text-white">Jon Devil</div>
+                        <div class="text-xs text-gray-400">Frontend Engineer</div>
+                        </div>
+                    </div>
+
+                    <a href="https://jahidads.github.io/SecureMail/" class="inline-flex items-center text-sm font-semibold text-purple-400 hover:text-purple-300" aria-label="Read full article: Design Systems">
+                        Read More
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2" aria-hidden="true">
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-indigo-200">Design System</span>
+                    <span class="text-xs px-2 py-1 bg-white/5 rounded-full text-teal-200">Tokens</span>
+                    </div>
+                </div>
+                </article>
+            </div>
+
+            <div class="mt-8 text-center">
+                <a href="https://t.me/jahidads12" class="inline-flex items-center gap-3 px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-600 text-white font-semibold shadow hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-purple-500/40" aria-label="View all posts">
+                View All Posts
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 fade-in">
+            <div class="container mx-auto px-6">
+            <div class="text-center">
+                <p class="text-sm uppercase tracking-widest text-gray-400">GET IN TOUCH</p>
+                <h2 class="mt-4 text-3xl md:text-5xl font-bold text-white">Contact Me</h2>
+            </div>
+
+            <div class="mt-12 max-w-2xl mx-auto">
+                <form id="contact-form" action="#" method="POST" novalidate>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="text" name="name" id="name" placeholder="Your Name" class="form-input w-full" required>
+                    <input type="email" name="email" id="email" placeholder="Your Email" class="form-input w-full" required>
+                </div>
+                <div class="mt-6">
+                    <textarea name="message" id="message" placeholder="Your Message" rows="5" class="form-input w-full" required></textarea>
+                </div>
+                <div class="mt-8 text-center">
+                    <button id="contact-submit" type="submit" class="px-8 py-3 rounded-lg btn-outline text-white font-semibold">
+                    SEND MESSAGE
+                    </button>
+                </div>
+                </form>
+            </div>
+            </div>
+
+            <!-- Toast / Popup Notification -->
+            <div id="toast" role="status" aria-live="polite" aria-atomic="true" class="fixed bottom-6 right-6 z-50 hidden">
+            <div class="max-w-sm w-full bg-[rgba(15,18,40,0.98)] border border-white/6 rounded-lg shadow-lg p-4 flex items-start gap-3" style="backdrop-filter: blur(6px);">
+                <div id="toast-icon" class="w-9 h-9 rounded-full flex items-center justify-center bg-indigo-700/20 text-indigo-300 shrink-0" aria-hidden="true">
+                <!-- icon inserted by JS -->
+                ✓
+                </div>
+                <div class="flex-1">
+                <p id="toast-title" class="font-semibold text-white">Success</p>
+                <p id="toast-message" class="text-sm text-gray-300 mt-1">Your message was sent.</p>
+                </div>
+                <div class="flex items-start gap-2">
+                <button id="toast-close" class="text-gray-400 hover:text-white p-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500/40" aria-label="Dismiss notification">
+                    ✕
+                </button>
+                </div>
+            </div>
+            </div>
+
+            <style>
+            /* Simple show/hide animation for the toast */
+            #toast { opacity: 0; transform: translateY(12px) scale(0.995); transition: opacity 220ms ease, transform 220ms ease; pointer-events: none; }
+            #toast.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+            @media (prefers-reduced-motion: reduce) {
+                #toast { transition: none; }
+            }
+            </style>
+
+            <script>
+            (function () {
+                const form = document.getElementById('contact-form');
+                const submitBtn = document.getElementById('contact-submit');
+                const toast = document.getElementById('toast');
+                const toastTitle = document.getElementById('toast-title');
+                const toastMessage = document.getElementById('toast-message');
+                const toastIcon = document.getElementById('toast-icon');
+                const toastClose = document.getElementById('toast-close');
+                let hideTimeout = null;
+
+                function showToast({ title = 'Notice', message = '', type = 'info', duration = 5000 } = {}) {
+                // set semantic content
+                toastTitle.textContent = title;
+                toastMessage.textContent = message;
+
+                // style/icon per type
+                toastIcon.innerHTML = type === 'success' ? '✓' : (type === 'error' ? '⚠' : 'ℹ');
+                if (type === 'success') {
+                    toastIcon.className = 'w-9 h-9 rounded-full flex items-center justify-center bg-green-700/20 text-green-300 shrink-0';
+                } else if (type === 'error') {
+                    toastIcon.className = 'w-9 h-9 rounded-full flex items-center justify-center bg-red-700/20 text-red-300 shrink-0';
+                } else {
+                    toastIcon.className = 'w-9 h-9 rounded-full flex items-center justify-center bg-indigo-700/20 text-indigo-300 shrink-0';
+                }
+
+                // show
+                toast.classList.add('show');
+                toast.classList.remove('hidden');
+
+                // ensure it's focusable for keyboard users when shown
+                toast.setAttribute('tabindex', '-1');
+                toast.focus({ preventScroll: true });
+
+                // clear existing timer
+                if (hideTimeout) clearTimeout(hideTimeout);
+                hideTimeout = setTimeout(hideToast, duration);
+                }
+
+                function hideToast() {
+                toast.classList.remove('show');
+                // after transition, hide off-DOM for screen readers
+                setTimeout(() => {
+                    if (!toast.classList.contains('show')) {
+                    toast.classList.add('hidden');
+                    toast.removeAttribute('tabindex');
+                    }
+                }, 240);
+                if (hideTimeout) { clearTimeout(hideTimeout); hideTimeout = null; }
+                }
+
+                // dismiss handlers
+                toastClose.addEventListener('click', hideToast);
+                toast.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') hideToast();
+                });
+
+                // intercept submit — demo/simulate network call & show toast
+                form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                // simple constraint validation UI (browsers do most of it for required)
+                if (!form.checkValidity()) {
+                    // let browser show native messages; focus first invalid element
+                    const firstInvalid = form.querySelector(':invalid');
+                    if (firstInvalid) firstInvalid.focus();
+                    showToast({ title: 'Missing fields', message: 'Please fill out the required fields.', type: 'error', duration: 4000 });
+                    return;
+                }
+
+                // disable while "sending"
+                submitBtn.disabled = true;
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'SENDING...';
+
+                try {
+                    // Simulate network latency for demo. Replace with real fetch() when backend is ready.
+                    await new Promise(r => setTimeout(r, 900));
+
+                    // On success:
+                    showToast({ title: 'Message sent', message: 'Thanks — I will reply shortly.', type: 'success', duration: 5500 });
+
+                    // reset the form
+                    form.reset();
+                } catch (err) {
+                    console.error(err);
+                    showToast({ title: 'Send failed', message: 'An error occurred. Please try again later.', type: 'error', duration: 6000 });
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+                });
+
+                // close toast when clicking outside (optional)
+                document.addEventListener('click', (e) => {
+                if (!toast.classList.contains('show')) return;
+                if (!toast.contains(e.target)) {
+                    // don't hide if user clicked submit/button etc quickly
+                    hideToast();
+                }
+                });
+
+                // ensure Escape closes toast globally
+                window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && toast.classList.contains('show')) hideToast();
+                });
+
+                // Expose a small API to show toast from other scripts if needed
+                window.__showContactToast = showToast;
+            })();
+            </script>
+        </section>
+
+    </main>
+
+    <!-- Footer (refreshed layout, IDs preserved for JS hooks) -->
+    <footer id="footer" class="mt-20 border-t border-white/6 bg-gradient-to-t from-[rgba(10,13,30,0.96)] to-transparent" role="contentinfo">
+        <div class="container mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+            <!-- Brand -->
+            <div class="col-span-1">
+                <a href="#about" class="flex items-center gap-3" aria-label="Home — Simon Sparks">
+                    <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM16.632 9.368C16.822 9.558 16.92 9.81 16.92 10.074C16.92 10.338 16.822 10.59 16.632 10.78L13.414 14H16C16.552 14 17 14.448 17 15C17 15.552 16.552 16 16 16H8C7.448 16 7 15.552 7 15C7 14.448 7.448 14 8 14H10.586L7.368 10.78C6.988 10.399 6.988 9.761 7.368 9.368C7.761 8.988 8.399 8.988 8.78 9.368L12 12.586L15.22 9.368C15.601 8.988 16.239 8.988 16.632 9.368Z" fill="url(#logo-gradient-footer)"/>
+                        <defs>
+                            <linearGradient id="logo-gradient-footer" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#A855F7"/>
+                                <stop offset="1" stop-color="#4F46E5"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="text-lg font-bold text-white">SIMON SPARKS</span>
+                </a>
+                <p class="text-sm text-gray-400 max-w-sm mt-3">Creative design, 3D motion and systems that scale. Available for senior product and brand engagements.</p>
+                <nav aria-label="Footer navigation" class="mt-6">
+                    <ul class="grid grid-cols-2 gap-2 text-sm text-gray-300">
+                        <li><a href="#work" class="hover:underline">Work</a></li>
+                        <li><a href="#services" class="hover:underline">Services</a></li>
+                        <li><a href="#process" class="hover:underline">Process</a></li>
+                        <li><a href="#contact" class="hover:underline">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Social rows (preserve .footer-social-row and data-count) -->
+            <div class="col-span-1 lg:col-span-1">
+                <div class="footer-socials" aria-label="Social accounts">
+                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="footer-social-row" data-count="12345" aria-label="LinkedIn profile">
+                        <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6C1.1 6 0 4.88 0 3.5C0 2.12 1.1 1 2.48 1C3.86 1 4.98 2.12 4.98 3.5ZM0.5 8.5H4.5V24H0.5V8.5ZM8.5 8.5H12.2V10.2H12.3C12.9 9.1 14.4 8 16.6 8C21.2 8 22 10.9 22 15.5V24H18V16.5C18 14 17.8 11.3 15 11.3C12.2 11.3 11.8 13.7 11.8 16.4V24H8.5V8.5Z" fill="currentColor"/></svg></span>
+                        <span class="label">LinkedIn</span>
+                        <span class="count">12.3k</span>
+                    </a>
+
+                    <a href="https://twitter.com/" target="_blank" rel="noopener" class="footer-social-row mt-2" data-count="9876" aria-label="Twitter profile">
+                        <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.46 6c-.77.35-1.6.59-2.46.7a4.3 4.3 0 0 0 1.88-2.38 8.59 8.59 0 0 1-2.72 1.04 4.28 4.28 0 0 0-7.3 3.9A12.15 12.15 0 0 1 3.16 4.6a4.28 4.28 0 0 0 1.33 5.72 4.25 4.25 0 0 1-1.94-.54v.05a4.28 4.28 0 0 0 3.43 4.2c-.45.12-.92.18-1.41.18-.34 0-.66-.03-.98-.09a4.29 4.29 0 0 0 4 2.97A8.59 8.59 0 0 1 2 19.54 12.12 12.12 0 0 0 8.29 21c7.55 0 11.69-6.26 11.69-11.68 0-.18-.01-.36-.02-.53A8.35 8.35 0 0 0 22.46 6z" fill="currentColor"/></svg></span>
+                        <span class="label">Twitter</span>
+                        <span class="count">9.8k</span>
+                    </a>
+
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="footer-social-row mt-2" data-count="20400" aria-label="Instagram profile">
+                        <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5a4.5 4.5 0 1 0 .001 9.001A4.5 4.5 0 0 0 12 7.5zm4.8-.9a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z" fill="currentColor"/></svg></span>
+                        <span class="label">Instagram</span>
+                        <span class="count">20.4k</span>
+                    </a>
+                </div>
+            </div>
+            <!-- ads section -->
+            <div class="col-span-1 lg:col-span-1">
+                <h4 class="text-sm text-gray-400 uppercase tracking-wide">Ads</h4>
+                <p class="text-xs text-gray-400 mt-2">We provide a platform to promote your product or service here.</p>
+                <!-- Feature: Ad Banner Example -->
+                <div class="mt-4">
+                    <style>
+                        /* Scoped carousel styles (single DOM slide, content swapped) */
+                        .ads-carousel { position: relative; min-height: 96px; display: block; }
+                        .ads-carousel .ad-slide {
+                            display: flex;
+                            gap: 0.75rem;
+                            align-items: center;
+                            padding: 0.6rem;
+                            border-radius: 0.75rem;
+                            background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+                            border: 1px solid rgba(255,255,255,0.04);
+                            transition: opacity 360ms cubic-bezier(.2,.9,.2,1), transform 360ms cubic-bezier(.2,.9,.2,1);
+                            opacity: 1;
+                            transform: translateY(0);
+                            will-change: opacity, transform;
+                        }
+                        .ads-carousel .ad-meta { flex: 1; min-width: 0; }
+                        .ads-carousel .ad-badge { font-size: 0.7rem; padding: 0.18rem 0.5rem; border-radius: 999px; background: rgba(255,255,255,0.06); color: #fff; }
+                        .ads-carousel .ad-thumb { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: rgba(255,255,255,0.03); display:inline-flex; align-items:center; justify-content:center; overflow:hidden; }
+                        .ads-carousel .ad-actions a { display:inline-flex; align-items:center; gap:0.4rem; text-decoration:none; }
+                        .ads-carousel .ad-desc { color: #c7c7d6; font-size: 0.8rem; display:block; }
+                        @media (min-width: 768px) {
+                            .ads-carousel { min-height: 110px; }
+                        }
+                    </style>
+
+                    <div id="ads-carousel" class="ads-carousel" aria-live="polite" aria-atomic="true">
+                        <!-- Single slide container - content will be swapped by JS -->
+                        <div class="ad-slide" role="group" aria-roledescription="ad slide" aria-label="Ad">
+                            <div class="ad-thumb" id="ad-thumb" aria-hidden="true">
+                                <img src="https://img.icons8.com/?size=80&id=Fd7UIsvdh2KM&format=png" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.onerror=null;this.src='https://placehold.co/64x64/0A0D1E/FFFFFF?text=D'">
+                            </div>
+
+                            <div class="ad-meta">
+                                <div id="ad-title" class="font-semibold text-white text-sm">Featured: Design Tools</div>
+                                <div id="ad-desc" class="text-xs text-gray-300 truncate ad-desc">Figma & Web UI kit — prebuilt components to jumpstart interfaces.</div>
+                            </div>
+
+                            <div class="flex flex-col items-end gap-2 ad-actions">
+                                <span id="ad-badge" class="ad-badge">3 days</span>
+                                <a id="ad-link" href="https://www.facebook.com/jahidads1" target="_blank" rel="noopener" class="px-3 py-1 rounded bg-indigo-600 text-white text-xs font-semibold hover:bg-pink-600 transition ad-action-btn" data-action="learn" aria-label="Learn more about Design Tools">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        (function () {
+                            const container = document.getElementById('ads-carousel');
+                            if (!container) return;
+
+                            // All ads now stored in JS (single DOM slide used)
+                            const slidesData = [
+                                {
+                                    title: 'Featured: Design Tools',
+                                    desc: 'Figma & Web UI kit — prebuilt components to jumpstart interfaces.',
+                                    badge: '3 days',
+                                    linkHref: 'https://www.facebook.com/jahidads1',
+                                    linkLabel: 'Learn More',
+                                    linkClass: 'px-3 py-1 rounded bg-indigo-600 text-white text-xs font-semibold hover:bg-pink-600 transition ad-action-btn',
+                                    thumbHtml: '<img src="https://img.icons8.com/?size=80&id=Fd7UIsvdh2KM&format=png" alt="logo" style="width:100%;height:100%;object-fit:cover" onerror="this.onerror=null;this.src=\'https://placehold.co/64x64/0A0D1E/FFFFFF?text=D\'">'
+                                },
+                                {
+                                    title: 'Rapid UX Audit',
+                                    desc: 'Heuristic review + prioritized fixes you can ship fast.',
+                                    badge: '1 week',
+                                    linkHref: 'https://jahidads.github.io/Portfolio/',
+                                    linkLabel: 'Learn More',
+                                    linkClass: 'px-3 py-1 rounded bg-indigo-600 text-white text-xs font-semibold hover:bg-pink-600 transition ad-action-btn',
+                                    thumbHtml: '<img src="https://img.icons8.com/?size=80&id=j17mQLblRvsB&format=png" alt="logo" style="width:100%;height:100%;object-fit:cover" onerror="this.onerror=null;this.src=\'https://placehold.co/64x64/0A0D1E/FFFFFF?text=D\'">'
+                                },
+                                {
+                                    title: 'Prototype Sprint',
+                                    desc: 'Interactive prototype + user flows — perfect for stakeholder demos.',
+                                    badge: '2 weeks',
+                                    linkHref: '#contact',
+                                    linkLabel: 'Learn More',
+                                    linkClass: 'px-3 py-1 rounded bg-indigo-600 text-white text-xs font-semibold hover:bg-pink-600 transition ad-action-btn',
+                                    thumbHtml: '<img src="https://img.icons8.com/?size=80&id=KJBWpefFRvkj&format=png" alt="logo" style="width:100%;height:100%;object-fit:cover" onerror="this.onerror=null;this.src=\'https://placehold.co/64x64/0A0D1E/FFFFFF?text=D\'">'
+                                }
+                            ];
+
+                            // DOM refs
+                            const thumb = document.getElementById('ad-thumb');
+                            const title = document.getElementById('ad-title');
+                            const desc = document.getElementById('ad-desc');
+                            const badge = document.getElementById('ad-badge');
+                            const link = document.getElementById('ad-link');
+
+                            let current = 0;
+                            const AUTO_MS = 6000;
+                            let timer = null;
+                            let paused = false;
+
+                            function render(index) {
+                                const d = slidesData[index];
+                                // update thumb
+                                thumb.innerHTML = d.thumbHtml || '';
+                                // update texts
+                                title.textContent = d.title;
+                                desc.textContent = d.desc;
+                                badge.textContent = d.badge;
+                                link.href = d.linkHref || '#';
+                                link.textContent = d.linkLabel || 'Learn';
+                                link.className = d.linkClass || '';
+                                // update aria for the group
+                                const group = container.querySelector('.ad-slide');
+                                if (group) group.setAttribute('aria-label', d.title + ' — ' + d.badge);
+                                // announce small data attribute for SR or other scripts
+                                container.setAttribute('data-current', String(index + 1));
+                            }
+
+                            function next() {
+                                current = (current + 1) % slidesData.length;
+                                // small visual "crossfade" using transform; quick reset for reflow
+                                const slideEl = container.querySelector('.ad-slide');
+                                if (slideEl) {
+                                    slideEl.style.opacity = '0';
+                                    slideEl.style.transform = 'translateY(6px)';
+                                    setTimeout(() => {
+                                        render(current);
+                                        slideEl.style.opacity = '1';
+                                        slideEl.style.transform = 'translateY(0)';
+                                    }, 180);
+                                } else {
+                                    render(current);
+                                }
+                            }
+
+                            function startAuto() {
+                                if (timer) clearInterval(timer);
+                                timer = setInterval(() => { if (!paused) next(); }, AUTO_MS);
+                            }
+
+                            function stopAuto() {
+                                if (timer) { clearInterval(timer); timer = null; }
+                            }
+
+                            // clicking the CTA should advance to next after a short delay while letting link open
+                            link.addEventListener('click', function (e) {
+                                // allow native navigation; advance visual after tiny delay
+                                setTimeout(next, 160);
+                                // restart auto after user interaction
+                                paused = false;
+                                startAuto();
+                            });
+
+                            // keyboard activation mapped to click for accessibility
+                            link.addEventListener('keydown', function (e) {
+                                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+                            });
+
+                            // Pause on hover/focus to let user read
+                            container.addEventListener('mouseenter', () => { paused = true; });
+                            container.addEventListener('mouseleave', () => { paused = false; });
+                            container.addEventListener('focusin', () => { paused = true; });
+                            container.addEventListener('focusout', () => {
+                                if (!container.contains(document.activeElement)) paused = false;
+                            });
+
+                            // init
+                            render(current);
+                            startAuto();
+
+                            // Expose small API
+                            window.__adsCarousel = {
+                                next: next,
+                                show: (i) => { current = (i % slidesData.length + slidesData.length) % slidesData.length; render(current); },
+                                pause: () => { paused = true; stopAuto(); },
+                                resume: () => { paused = false; startAuto(); },
+                                data: slidesData
+                            };
+
+                        })();
+                    </script>
+                </div>
+            </div>
+
+            <!-- Subscribe (preserve id=footer-subscribe) -->
+            <div class="col-span-1 lg:col-span-1">
+                <h4 class="text-sm text-gray-400 uppercase tracking-wide">Subscribe</h4>
+                <p class="text-xs text-gray-400 mt-2">No spam — occasional design notes, case studies and 3D experiments.</p>
+                <form id="footer-subscribe" class="mt-3 flex gap-3 items-center max-w-md" aria-label="Subscribe to newsletter">
+                    <label for="subscribe-email" class="sr-only">Email address</label>
+                    <input id="subscribe-email" name="email" type="email" placeholder="your@email.com" required
+                        class="form-input w-full bg-[rgba(255,255,255,0.03)] placeholder-gray-400 text-white" />
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-sm font-semibold">Subscribe</button>
+                </form>
+                <!-- Accessible subscribe confirmation (hidden until triggered) -->
+                <div id="subscribe-confirm" role="status" aria-live="polite" class="sr-only mt-2 text-sm text-green-300">Thanks — you are subscribed.</div>
+            </div>
+
+        </div>
+
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
+            <p class="text-xs text-gray-400">© <span id="site-year"></span> Simon Sparks. Design by 🎉Jahid Hasan.</p>
+            <div class="text-xs text-gray-400">Built with care · Accessible · Performance-minded</div>
+        </div>
+
+        <style>
+        /* Footer social rows: hidden on small screens, visible on md+ (restored styles) */
+        .footer-socials{display:none;margin-top:0.75rem}
+        .footer-social-row{display:flex;align-items:center;gap:0.75rem;padding:0.5rem;border-radius:0.5rem;color:rgba(255,255,255,0.95);text-decoration:none;transition:background 180ms ease,transform 160ms ease,box-shadow 160ms ease}
+        .footer-social-row .icon{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;background:rgba(255,255,255,0.03);flex:0 0 32px}
+        .footer-social-row .label{font-size:0.95rem;font-weight:600}
+        .footer-social-row .count{margin-left:auto;font-size:0.85rem;color:#C7C7FF;font-variation-settings:"wght" 600}
+        .footer-social-row:focus,.footer-social-row:hover{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));transform:translateY(-2px);box-shadow:0 8px 22px rgba(79,70,229,0.06);outline:none}
+        .footer-social-row:focus-visible{outline:3px solid rgba(167,139,250,0.16);outline-offset:4px}
+        @media(min-width:768px){.footer-socials{display:flex;flex-direction:column;gap:0.5rem}}
+
+        /* Back to top button */
+        .back-to-top{position:fixed;right:18px;bottom:18px;z-index:60;width:44px;height:44px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);color:#fff;backdrop-filter: blur(6px);transition:transform 160ms ease,opacity 160ms ease;opacity:0;pointer-events:none}
+        .back-to-top.show{opacity:1;pointer-events:auto;transform: translateY(0)}
+        .back-to-top:focus{outline:3px solid rgba(167,139,250,0.18);outline-offset:4px}
+    /* link underline micro-animation for footer links */
+    .footer a { position: relative; display: inline-block; }
+    .footer a::after { content: ''; position: absolute; left: 0; bottom: -2px; height: 2px; width: 0; background: linear-gradient(90deg,#A855F7,#4F46E5); transition: width 260ms cubic-bezier(.2,.9,.2,1); border-radius:2px; }
+    .footer a:hover::after, .footer a:focus::after { width: 100%; }
+        </style>
+
+        <script>
+            // small inline helper for current year & subscribe mock (preserved behavior)
+            (function () {
+                const yearEl = document.getElementById('site-year');
+                if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+                const form = document.getElementById('footer-subscribe');
+                if (!form) return;
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const email = document.getElementById('subscribe-email');
+                    if (!email || !email.value) {
+                        if (email) email.focus();
+                        return;
+                    }
+                    // mimic success micro-interaction
+                    const btn = form.querySelector('button');
+                    const original = btn.textContent;
+                    btn.textContent = 'Subscribed';
+                    btn.disabled = true;
+
+                    // show accessible confirmation
+                    const conf = document.getElementById('subscribe-confirm');
+                    if (conf) {
+                        conf.classList.remove('sr-only');
+                        conf.classList.add('block');
+                        conf.textContent = 'Thanks — you are subscribed.';
+                        // hide after a short delay
+                        setTimeout(() => {
+                            conf.classList.add('sr-only');
+                            conf.classList.remove('block');
+                        }, 2600);
+                    }
+
+                    setTimeout(() => {
+                        btn.textContent = original;
+                        btn.disabled = false;
+                        email.value = '';
+                    }, 1400);
+                });
+            })();
+
+            // Animate footer social counts (runs once when footer is visible)
+            (function(){
+                function formatCount(n){
+                    if (typeof n !== 'number' || isNaN(n)) return n;
+                    if (n >= 1000000) return (n/1000000).toFixed(1).replace(/\.0$/,'') + 'M';
+                    if (n >= 1000) return (n/1000).toFixed(n>=10000?0:1).replace(/\.0$/,'') + 'k';
+                    return String(n);
+                }
+
+                const rows = Array.from(document.querySelectorAll('.footer-social-row'));
+                if (!rows.length) return;
+
+                const io = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        const row = entry.target;
+                        const countEl = row.querySelector('.count');
+                        const data = row.getAttribute('data-count');
+                        const target = data && !isNaN(+data) ? +data : null;
+                        if (!countEl || !target) { obs.unobserve(row); return; }
+
+                        // animate 800ms easeOutCubic
+                        const duration = 800;
+                        const start = performance.now();
+                        const startVal = 0;
+                        function step(now){
+                            const t = Math.min(1, (now - start)/duration);
+                            const eased = 1 - Math.pow(1 - t, 3);
+                            const cur = Math.round(startVal + (target - startVal) * eased);
+                            countEl.textContent = formatCount(cur);
+                            if (t < 1) requestAnimationFrame(step);
+                        }
+                        requestAnimationFrame(step);
+                        obs.unobserve(row);
+                    });
+                }, {threshold: 0.2});
+
+                rows.forEach(r => io.observe(r));
+            })();
+
+            // Back-to-top button (small unobtrusive control)
+            (function(){
+                const btn = document.createElement('button');
+                btn.className = 'back-to-top';
+                btn.setAttribute('aria-label', 'Back to top');
+                btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 15l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                document.body.appendChild(btn);
+
+                const showAt = 240;
+                const onScroll = () => {
+                    if (window.scrollY > showAt) btn.classList.add('show');
+                    else btn.classList.remove('show');
+                };
+                window.addEventListener('scroll', onScroll, {passive:true});
+                btn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+                // keyboard accessibility
+                btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); } });
+            })();
+        </script>
+        <!-- Decorative footer glows (purely visual) -->
+        <div aria-hidden="true" class="footer-decor pointer-events-none" style="position:absolute;inset:0;z-index:0;overflow:hidden">
+            <svg width="100%" height="100%" viewBox="0 0 800 200" preserveAspectRatio="none" style="opacity:0.08;filter:blur(36px);transform:translateY(-10%);">
+                <defs>
+                    <linearGradient id="fgrad" x1="0" x2="1">
+                        <stop offset="0%" stop-color="#7C3AED"/>
+                        <stop offset="100%" stop-color="#EC4899"/>
+                    </linearGradient>
+                </defs>
+                <rect x="-10" y="0" width="820" height="240" fill="url(#fgrad)"></rect>
+            </svg>
+        </div>
+
+        </footer>
+
+    <script>
+        // --- Custom Cursor ---
+        (function() {
+            // don't run custom cursor on touch/coarse pointer devices
+            const isTouch = ('ontouchstart' in window) || window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+            if (isTouch) return;
+
+            const cursorDot = document.querySelector(".cursor-dot");
+            const cursorOutline = document.querySelector(".cursor-outline");
+            const hoverables = document.querySelectorAll('a, button');
+
+            window.addEventListener("mousemove", function (e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                if (cursorDot) {
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                }
+
+                // use animate for smoother outline movement
+                if (cursorOutline && cursorOutline.animate) {
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: "forwards" });
+                } else if (cursorOutline) {
+                    cursorOutline.style.left = `${posX}px`;
+                    cursorOutline.style.top = `${posY}px`;
+                }
+            });
+
+            hoverables.forEach(el => {
+                el.addEventListener('mouseover', () => cursorOutline && cursorOutline.classList.add('hover'));
+                el.addEventListener('mouseout', () => cursorOutline && cursorOutline.classList.remove('hover'));
+            });
+        })();
+
+        // --- Mobile menu logic (open/close, aria, animations, accessibility) ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileBackdrop = document.getElementById('mobile-backdrop');
+        const mobileClose = document.getElementById('mobile-menu-close');
+        const mobileLinks = mobileMenu.querySelectorAll('.mobile-menu-links a');
+        const socialRows = mobileMenu.querySelectorAll('.mobile-social-row');
+
+        // helper to format numbers (k abbreviations)
+        const formatCount = (n) => {
+            if (typeof n !== 'number' || isNaN(n)) return n;
+            if (n >= 1000) return `${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k`;
+            return `${n}`;
+        };
+
+        // Accessibility: focus trap helpers
+        const focusableSelectors = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+        let previouslyFocused = null;
+
+        const trapFocus = (e) => {
+            if (!mobileMenu.classList.contains('show')) return;
+            const focusable = Array.from(mobileMenu.querySelectorAll(focusableSelectors)).filter(el => el.offsetParent !== null);
+            if (focusable.length === 0) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
+            if (e.key === 'Tab') {
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+        };
+
+        const openMenu = () => {
+            previouslyFocused = document.activeElement;
+
+            mobileMenu.classList.add('show');
+            mobileBackdrop.classList.add('show');
+            mobileMenuButton.setAttribute('aria-expanded', 'true');
+            mobileMenu.setAttribute('tabindex', '-1');
+            mobileMenu.removeAttribute('aria-hidden');
+            mobileBackdrop.setAttribute('aria-hidden', 'false');
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+
+            // move focus into the panel (close button is a good target)
+            setTimeout(() => {
+                const firstFocusable = mobileMenu.querySelector(focusableSelectors);
+                (firstFocusable || mobileClose).focus({ preventScroll: true });
+            }, 60);
+
+            // Stagger link reveal
+            mobileLinks.forEach((link, i) => {
+                setTimeout(() => link.classList.add('show'), 60 * i + 80);
+            });
+
+            // reveal social rows slightly after links and animate counts
+            socialRows.forEach((row, i) => {
+                setTimeout(() => {
+                    row.classList.add('show');
+
+                    // animate count if numeric
+                    const countEl = row.querySelector('.count');
+                    const data = row.getAttribute('data-count');
+                    const target = data && !isNaN(+data) ? +data : null;
+                    if (target) {
+                        let current = 0;
+                        const steps = 40;
+                        const step = Math.max(1, Math.floor(target / steps));
+                        const tick = () => {
+                            current += step;
+                            if (current < target) {
+                                countEl.innerText = formatCount(current);
+                                requestAnimationFrame(tick);
+                            } else {
+                                countEl.innerText = formatCount(target);
+                            }
+                        };
+                        requestAnimationFrame(tick);
+                    }
+                }, 60 * mobileLinks.length + 80 + 90 * i);
+            });
+
+            // bind focus trap
+            window.addEventListener('keydown', trapFocus);
+        };
+
+        const closeMenu = (focusButton = true) => {
+            mobileMenu.classList.remove('show');
+            mobileBackdrop.classList.remove('show');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            mobileBackdrop.setAttribute('aria-hidden', 'true');
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+
+            // hide links
+            mobileLinks.forEach(link => link.classList.remove('show'));
+            socialRows.forEach(row => {
+                row.classList.remove('show');
+                // reset counts to initial label (friendly short)
+                const data = row.getAttribute('data-count');
+                const countEl = row.querySelector('.count');
+                if (countEl) {
+                    if (data && !isNaN(+data)) {
+                        const num = +data;
+                        // format initial short version
+                        countEl.innerText = formatCount(num);
+                    } else if (data === '-') {
+                        countEl.innerText = '—';
+                    }
+                }
+            });
+
+            // unbind focus trap
+            window.removeEventListener('keydown', trapFocus);
+
+            // restore focus
+            if (focusButton) {
+                try { mobileMenuButton.focus({ preventScroll: true }); } catch (e) { /* ignore */ }
+            } else if (previouslyFocused) {
+                try { previouslyFocused.focus({ preventScroll: true }); } catch (e) { /* ignore */ }
+            }
+        };
+
+        // initialize state
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        mobileBackdrop.setAttribute('aria-hidden', 'true');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            if (expanded) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        mobileClose.addEventListener('click', () => closeMenu());
+
+        mobileBackdrop.addEventListener('click', () => closeMenu());
+
+        // close on ESC (keeps previous behavior but more explicit)
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                if (expanded) closeMenu();
+            }
+        });
+
+        // Close menu automatically if viewport resizes to desktop breakpoint
+        const onResize = () => {
+            if (window.innerWidth >= 768 && mobileMenu.classList.contains('show')) {
+                closeMenu(false);
+            }
+        };
+        window.addEventListener('resize', onResize);
+
+        // Smooth scrolling for navigation links (closes mobile menu when a link is clicked)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (!target) return;
+
+                // Close mobile menu if it's open
+                if (mobileMenu.classList.contains('show')) {
+                    closeMenu(false); // don't focus button to avoid jump
+                }
+
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // --- Scroll-triggered animations ---
+        const faders = document.querySelectorAll('.fade-in');
+        const statsSection = document.getElementById('stats-section');
+
+        const appearOptions = {
+            threshold: 0.2,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+                entry.target.classList.add('visible');
+
+                // Animate stats if the stats section is visible
+                if (entry.target === statsSection) {
+                    const statNumbers = document.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const target = +stat.getAttribute('data-target');
+                        stat.innerText = '0';
+                        const updateCount = () => {
+                            const count = +stat.innerText;
+                            const increment = target / 100;
+
+                            if (count < target) {
+                                stat.innerText = `${Math.ceil(count + increment)}`;
+                                setTimeout(updateCount, 20);
+                            } else {
+                                stat.innerText = target;
+                            }
+                        };
+                        updateCount();
+                    });
+                }
+
+                appearOnScroll.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+        if(statsSection) {
+            appearOnScroll.observe(statsSection);
+        }
+    </script>
+
+</body>
+</html>
