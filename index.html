@@ -18,11 +18,13 @@
     <!-- Custom Styles -->
     <style>
         /* Custom styles to match the design */
+        /* Ensure consistent box-sizing and prevent horizontal overflow on html too (fixes mobile right-gap) */
+        * { box-sizing: border-box; }
+        html, body { width: 100%; overflow-x: hidden; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0A0D1E;
             color: #E0E0E0;
-            overflow-x: hidden;
             cursor: none; /* Hide default cursor on pointer devices */
         }
         
@@ -70,18 +72,18 @@
             overflow: hidden;
         }
 
+        /* Background video: fill the hero area without causing horizontal overflow */
         #bg-video {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
+            inset: 0; /* top:0; right:0; bottom:0; left:0 */
+            width: 100%;
+            height: 100%;
             z-index: -1;
-            transform: translateX(-50%) translateY(-50%);
             object-fit: cover;
         }
+
+        /* Constrain media so they cannot force layout wider than the viewport */
+        img, video, svg { max-width: 100%; height: auto; display: block; }
         
         /* Overlay for video background */
         .hero-overlay {
@@ -2966,4 +2968,3 @@
 
 </body>
 </html>
-
